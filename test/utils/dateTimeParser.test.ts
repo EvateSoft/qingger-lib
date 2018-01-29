@@ -146,6 +146,19 @@ suite("DateTimeParser测试",function(){
             // expect(dtTimestamp20180111235959.toDiffDay('2018-01-20')).eq(9);
             // expect(dtTimestamp20180111235959.toDiffDay('2018-01-01')).eq(-10);
         });
+
+        it ("toXXX函数测试",function () {
+            // 2018-01-11 23:59:59
+            expect(dtTimestamp20180111235959.toMomentObject()).to.be.instanceof(moment);
+            expect(dtTimestamp20180111235959.toDay()).eq(11);
+            expect(dtTimestamp20180111235959.toMonth()).eq(1);
+            expect(dtTimestamp20180111235959.toDayInWeek()).eq(4); // 周四
+            expect(dtTimestamp20180111235959.toHour()).eq(23);
+            expect(dtTimestamp20180111235959.toMinute()).eq(59);
+            expect(dtTimestamp20180111235959.toSecond()).eq(59);
+            expect(dtTimestamp20180111235959.toUnixTimestamp()).eq(1515686399);
+            expect(dtTimestamp20180111235959.toInDays()).eq(17542);
+        });
     });
 
 });

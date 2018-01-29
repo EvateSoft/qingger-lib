@@ -124,5 +124,17 @@ mocha_typescript_1.suite("DateTimeParser测试", function () {
             // expect(dtTimestamp20180111235959.toDiffDay('2018-01-20')).eq(9);
             // expect(dtTimestamp20180111235959.toDiffDay('2018-01-01')).eq(-10);
         });
+        it("toXXX函数测试", function () {
+            // 2018-01-11 23:59:59
+            chai_1.expect(dtTimestamp20180111235959.toMomentObject()).to.be.instanceof(moment);
+            chai_1.expect(dtTimestamp20180111235959.toDay()).eq(11);
+            chai_1.expect(dtTimestamp20180111235959.toMonth()).eq(1);
+            chai_1.expect(dtTimestamp20180111235959.toDayInWeek()).eq(4); // 周四
+            chai_1.expect(dtTimestamp20180111235959.toHour()).eq(23);
+            chai_1.expect(dtTimestamp20180111235959.toMinute()).eq(59);
+            chai_1.expect(dtTimestamp20180111235959.toSecond()).eq(59);
+            chai_1.expect(dtTimestamp20180111235959.toUnixTimestamp()).eq(1515686399);
+            chai_1.expect(dtTimestamp20180111235959.toInDays()).eq(17542);
+        });
     });
 });
