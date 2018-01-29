@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var mocha_typescript_1 = require("mocha-typescript");
 var chai_1 = require("chai");
 var functions_1 = require("../../library/utils/functions");
-mocha_typescript_1.suite.skip("工具类函数测试(Util Functions Test)", function () {
+mocha_typescript_1.suite("工具类函数测试(Util Functions Test)", function () {
     mocha_typescript_1.suite("1.empty函数测试:", function () {
         var emptyVars = [[], undefined, null, {}, 0, ''];
         emptyVars.forEach(function (emptyVar) {

@@ -28,7 +28,7 @@ function formatDate(dateObj, fmt) {
             fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 }
-mocha_typescript_1.suite.skip("DateTimeParser测试", function () {
+mocha_typescript_1.suite("DateTimeParser测试", function () {
     var dtNow = null;
     var dtDateNow = null;
     var dt2018010106, dt20171231171000, dtMoment20170110, dtTimestamp20180111235959, dtNowCopy = null;

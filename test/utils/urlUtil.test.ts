@@ -10,8 +10,7 @@ import {expect} from "chai";
 import {QinggerLibURL} from "../../library/utils/urlUtil";
 import urlUtil = QinggerLibURL.urlUtil;
 
-
-suite.skip("URL工具类(urlUtil)测试",function () {
+suite("URL工具类(urlUtil)测试",function () {
 
     let testUrl = 'http://blog.csdn.net/vbangle/article/details/5643091';
     let testUrlWithQuery = 'https://cn.bing.com/search?q=typescript+outDir&qs=n&form=QBRE';

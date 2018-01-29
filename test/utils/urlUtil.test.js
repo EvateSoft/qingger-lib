@@ -10,7 +10,7 @@ var mocha_typescript_1 = require("mocha-typescript");
 var chai_1 = require("chai");
 var urlUtil_1 = require("../../library/utils/urlUtil");
 var urlUtil = urlUtil_1.QinggerLibURL.urlUtil;
-mocha_typescript_1.suite.skip("URL工具类(urlUtil)测试", function () {
+mocha_typescript_1.suite("URL工具类(urlUtil)测试", function () {
     var testUrl = 'http://blog.csdn.net/vbangle/article/details/5643091';
     var testUrlWithQuery = 'https://cn.bing.com/search?q=typescript+outDir&qs=n&form=QBRE';
     var testUrlWithFlags = 'localhost:7188/periodical?q=te&corpId=B2CCIRCLE#/path1/path2';

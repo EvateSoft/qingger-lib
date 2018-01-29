@@ -14,4 +14,6 @@ var functions_1 = require("./library/utils/functions");
 exports.QinggerLibUtils = functions_1.QinggerLibUtils;
 var urlUtil_1 = require("./library/utils/urlUtil");
 exports.QinggerLibURL = urlUtil_1.QinggerLibURL;
+var httpClient_1 = require("./library/httpClient/httpClient");
+exports.QinggerHttpClient = httpClient_1.QinggerHttpClient;
 //# sourceMappingURL=index.js.map
