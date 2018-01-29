@@ -100,9 +100,10 @@ var QinggerLibUtils;
      * @param args
      * @return {Promise<any>}
      */
-    async function sleep(ts, fn, ...args) {
-        await timeout(ts);
-        return fn(...args);
+    function sleep(ts, fn, ...args) {
+        timeout(ts).then(function () {
+            return fn(...args);
+        });
     }
     QinggerLibUtils.sleep = sleep;
 })(QinggerLibUtils = exports.QinggerLibUtils || (exports.QinggerLibUtils = {}));

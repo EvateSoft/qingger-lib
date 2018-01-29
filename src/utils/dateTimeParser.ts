@@ -97,7 +97,7 @@ export namespace QinggerLibDateTime {
             }
 
             if(dt instanceof DateTimeParser) {
-                this.momentObject = dt.momentObject;
+                this.momentObject = moment(dt.momentObject);
                 return;
             }
 
@@ -237,20 +237,24 @@ export namespace QinggerLibDateTime {
          * endofYear : 是计算一个日期对象当年结束的时间是多少
          * @return {DateTimeParser}
          */
-        public endOfDay() {return new DateTimeParser(this.momentObject.endOf("day")); }
-        public startOfDay() {return new DateTimeParser(this.momentObject.startOf("day"));}
-        public endOfMonth() {return new DateTimeParser(this.momentObject.endOf("month"));}
-        public startOfMonth() {return new DateTimeParser(this.momentObject.startOf("month"));}
-        public endOfYear() { return new DateTimeParser(this.momentObject.endOf("year"));}
-        public startOfYear() { return new DateTimeParser(this.momentObject.startOf("year"));}
-        public endOfQuarter() { return new DateTimeParser(this.momentObject.endOf("quarter"));}
-        public startOfQuarter() { return new DateTimeParser(this.momentObject.startOf("quarter"));}
-        public endOfWeek() { return new DateTimeParser(this.momentObject.endOf("week"));}
-        public startOfWeek() { return new DateTimeParser(this.momentObject.startOf("week"));}
-        public endOfHour() { return new DateTimeParser(this.momentObject.endOf("hour"));}
-        public startOfHour() { return new DateTimeParser(this.momentObject.startOf("hour"));}
-        public endOfMinute() { return new DateTimeParser(this.momentObject.endOf("minute"));}
-        public startOfMinute() { return new DateTimeParser(this.momentObject.startOf("minute"));}
+        public endOfDay() {
+            this.momentObject.endOf("day");
+            return this;
+        }
+
+        public startOfDay() {this.momentObject.startOf("day"); return this;}
+        public endOfMonth() {this.momentObject.endOf("month"); return this;}
+        public startOfMonth() {this.momentObject.startOf("month"); return this;}
+        public endOfYear() { this.momentObject.endOf("year"); return this;}
+        public startOfYear() { this.momentObject.startOf("year"); return this;}
+        public endOfQuarter() { this.momentObject.endOf("quarter"); return this;}
+        public startOfQuarter() { this.momentObject.startOf("quarter"); return this;}
+        public endOfWeek() { this.momentObject.endOf("week"); return this;}
+        public startOfWeek() { this.momentObject.startOf("week"); return this;}
+        public endOfHour() { this.momentObject.endOf("hour"); return this;}
+        public startOfHour() { this.momentObject.startOf("hour"); return this;}
+        public endOfMinute() { this.momentObject.endOf("minute"); return this;}
+        public startOfMinute() { this.momentObject.startOf("minute"); return this;}
 
 
         /**
@@ -321,8 +325,12 @@ export namespace QinggerLibDateTime {
             return this.momentObject.year();
         }
 
+        /**
+         * 获得月份，对于moment来说，月份的索引是0-11,对于DateParser来说，索引是1-12
+         * @return {number}
+         */
         public toMonth() :number {
-            return this.momentObject.month();
+            return this.momentObject.month()+1;
         }
 
         public toDay() : number {

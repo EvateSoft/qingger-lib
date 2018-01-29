@@ -106,9 +106,10 @@ export namespace QinggerLibUtils {
      * @param args
      * @return {Promise<any>}
      */
-    export async function sleep(ts,fn, ...args) {
-        await timeout(ts);
-        return fn(...args);
+    export function sleep(ts,fn, ...args) {
+        timeout(ts).then(function(){
+           return fn(...args);
+        });
     }
 
 }

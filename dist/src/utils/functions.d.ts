@@ -47,5 +47,5 @@ export declare namespace QinggerLibUtils {
      * @param args
      * @return {Promise<any>}
      */
-    function sleep(ts: any, fn: any, ...args: any[]): Promise<any>;
+    function sleep(ts: any, fn: any, ...args: any[]): void;
 }
