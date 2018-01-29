@@ -6,8 +6,8 @@
  * Time: 22:50
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const _ = require("lodash");
-const hasValue = require("has-value");
+var _ = require("lodash");
+var hasValue = require("has-value");
 var QinggerLibUtils;
 (function (QinggerLibUtils) {
     /**
@@ -16,7 +16,8 @@ var QinggerLibUtils;
      * @param {string} props
      * @returns {boolean}
      */
-    function empty(val, props = null) {
+    function empty(val, props) {
+        if (props === void 0) { props = null; }
         if (!val)
             return true;
         if (_.isNumber(val) || _.isString(val) || _.isBoolean(val)) {
@@ -27,10 +28,15 @@ var QinggerLibUtils;
     QinggerLibUtils.empty = empty;
     /**
      * 判断变量是否被设置
+     * @note : 空对象{}返回为false
      * @param val
      * @param {string} props
      */
-    function isset(val, props = null) {
+    function isset(val, props) {
+        if (props === void 0) { props = null; }
+        if (val == 0 || val == false) {
+            return true;
+        }
         if (!val)
             return false;
         return hasValue(val, props);
@@ -43,7 +49,8 @@ var QinggerLibUtils;
      * @param {number} index
      * @return {boolean}
      */
-    function in_array(search, arr, index = 0) {
+    function inArray(search, arr, index) {
+        if (index === void 0) { index = 0; }
         if (_.isArray(arr)) {
             return arr.includes(search, index);
         }
@@ -51,20 +58,20 @@ var QinggerLibUtils;
             return false;
         }
     }
-    QinggerLibUtils.in_array = in_array;
+    QinggerLibUtils.inArray = inArray;
     /**
      * 生成初始数组
      * @param {number} index
      * @return {any[]}
      */
-    function generate_index_array(index) {
-        let ret = new Array(index);
-        for (let i = 0; i < index; i++) {
+    function generateIndexArray(index) {
+        var ret = new Array(index);
+        for (var i = 0; i < index; i++) {
             ret[i] = i;
         }
         return ret;
     }
-    QinggerLibUtils.generate_index_array = generate_index_array;
+    QinggerLibUtils.generateIndexArray = generateIndexArray;
     /**
      * 生成随机整型数字
      * @param min
@@ -72,6 +79,8 @@ var QinggerLibUtils;
      * @return {any}
      */
     function getRandomInt(min, max) {
+        if (min === void 0) { min = 0; }
+        if (max === void 0) { max = 999999999; }
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
@@ -83,10 +92,12 @@ var QinggerLibUtils;
      * @return {Promise<any>}
      */
     function timeout(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+        return new Promise(function (resolve) {
+            setTimeout(resolve, ms);
+        });
+        // return new Promise(resolve => setTimeout(resolve, ms));
     }
     QinggerLibUtils.timeout = timeout;
-
     /**
      * sleep函数封装
      * @param ts
@@ -94,9 +105,14 @@ var QinggerLibUtils;
      * @param args
      * @return {Promise<any>}
      */
-    async function sleep(ts, fn, ...args) {
-        await timeout(ts);
-        return fn(...args);
+    function sleep(ts, fn) {
+        var args = [];
+        for (var _i = 2; _i < arguments.length; _i++) {
+            args[_i - 2] = arguments[_i];
+        }
+        timeout(ts).then(function () {
+            return fn.apply(void 0, args);
+        });
     }
     QinggerLibUtils.sleep = sleep;
 })(QinggerLibUtils = exports.QinggerLibUtils || (exports.QinggerLibUtils = {}));

@@ -8,6 +8,7 @@ export declare namespace QinggerLibUtils {
     function empty(val: any, props?: string): boolean;
     /**
      * 判断变量是否被设置
+     * @note : 空对象{}返回为false
      * @param val
      * @param {string} props
      */
@@ -19,20 +20,20 @@ export declare namespace QinggerLibUtils {
      * @param {number} index
      * @return {boolean}
      */
-    function in_array<T = any>(search: T, arr: Array<T>, index?: number): boolean;
+    function inArray<T = any>(search: T, arr: Array<T>, index?: number): boolean;
     /**
      * 生成初始数组
      * @param {number} index
      * @return {any[]}
      */
-    function generate_index_array(index: number): any[];
+    function generateIndexArray(index: number): any[];
     /**
      * 生成随机整型数字
      * @param min
      * @param max
      * @return {any}
      */
-    function getRandomInt(min: any, max: any): any;
+    function getRandomInt(min?: number, max?: number): number;
     /**
      * timeout函数的Promise封装
      * @param ms
@@ -46,5 +47,5 @@ export declare namespace QinggerLibUtils {
      * @param args
      * @return {Promise<any>}
      */
-    function sleep(ts: any, fn: any, ...args: any[]): Promise<any>;
+    function sleep(ts: any, fn: any, ...args: any[]): void;
 }

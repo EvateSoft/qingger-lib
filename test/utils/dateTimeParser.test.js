@@ -6,13 +6,13 @@
  * Time: 22:11
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const mocha_typescript_1 = require("mocha-typescript");
-const chai_1 = require("chai");
-const dateTimeParser_1 = require("../../src/utils/dateTimeParser");
+var mocha_typescript_1 = require("mocha-typescript");
+var chai_1 = require("chai");
+var dateTimeParser_1 = require("../../library/utils/dateTimeParser");
 var dateTimeParse = dateTimeParser_1.QinggerLibDateTime.dateTimeParse;
-const moment = require("moment");
+var moment = require("moment");
 function formatDate(dateObj, fmt) {
-    let o = {
+    var o = {
         "M+": dateObj.getMonth() + 1,
         "d+": dateObj.getDate(),
         "h+": dateObj.getHours(),
@@ -23,16 +23,16 @@ function formatDate(dateObj, fmt) {
     };
     if (/(y+)/.test(fmt))
         fmt = fmt.replace(RegExp.$1, (dateObj.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (let k in o)
+    for (var k in o)
         if (new RegExp("(" + k + ")").test(fmt))
             fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 }
 mocha_typescript_1.suite("DateTimeParser测试", function () {
-    let dtNow = null;
-    let dtDateNow = null;
-    let dt2018010106, dt20171231171000, dtMoment20170110, dtTimestamp20180111235959, dtNowCopy = null;
-    let dateNowObj = new Date();
+    var dtNow = null;
+    var dtDateNow = null;
+    var dt2018010106, dt20171231171000, dtMoment20170110, dtTimestamp20180111235959, dtNowCopy = null;
+    var dateNowObj = new Date();
     before(function () {
         dtNow = dateTimeParse();
         dtDateNow = dateTimeParse(dateNowObj);
@@ -51,7 +51,7 @@ mocha_typescript_1.suite("DateTimeParser测试", function () {
     mocha_typescript_1.suite("2.dateTimeParser函数测试:", function () {
         it("format函数测试:", function () {
             chai_1.expect(dtNow.toFormat("YYYY-MM-DD HH:mm")).to.be.eq(dtDateNow.toFormat("YYYY-MM-DD HH:mm"));
-            let dateNowFmt = formatDate(dateNowObj, "yyyy-MM-dd hh:mm");
+            var dateNowFmt = formatDate(dateNowObj, "yyyy-MM-dd hh:mm");
             chai_1.expect(dtNow.toFormat("YYYY-MM-DD HH:mm")).to.be.eq(dateNowFmt);
             chai_1.expect(dt2018010106.toFormat()).eq("2018-01-01 06:00:00");
             chai_1.expect(dtMoment20170110.toFormat()).eq("2017-01-10 00:00:00");
@@ -59,19 +59,19 @@ mocha_typescript_1.suite("DateTimeParser测试", function () {
         });
         it("add/subtract日期加减函数测试", function () {
             // 因add/subtract操作会改变自身，所以需要额外赋值变量
-            let tmp1dt2018010106 = dateTimeParse(dt2018010106);
+            var tmp1dt2018010106 = dateTimeParse(dt2018010106);
             chai_1.expect(tmp1dt2018010106.add(1, "month").toMonth()).eq(2);
-            let tmp2dt2018010106 = dateTimeParse(dt2018010106);
+            var tmp2dt2018010106 = dateTimeParse(dt2018010106);
             chai_1.expect(tmp2dt2018010106.add(10, "day").toFormat()).eq("2018-01-11 06:00:00");
-            let tmp3dt2018010106 = dateTimeParse(dt2018010106);
+            var tmp3dt2018010106 = dateTimeParse(dt2018010106);
             chai_1.expect(tmp3dt2018010106.add(10, dateTimeParser_1.QinggerLibDateTime.DTItemKey.minutes).toFormat()).eq("2018-01-01 06:10:00");
-            let tmp4dt2018010106 = dateTimeParse(dt2018010106);
+            var tmp4dt2018010106 = dateTimeParse(dt2018010106);
             chai_1.expect(tmp4dt2018010106.subtract(12, dateTimeParser_1.QinggerLibDateTime.DTItemKey.months).toYear()).eq(2017);
-            let tmp5dt2018010106 = dateTimeParse(dt2018010106);
+            var tmp5dt2018010106 = dateTimeParse(dt2018010106);
             chai_1.expect(tmp5dt2018010106.subtract(2, dateTimeParser_1.QinggerLibDateTime.DTItemKey.years).toYear()).eq(2016);
-            let tmp6dt2018010106 = dateTimeParse(dt2018010106);
+            var tmp6dt2018010106 = dateTimeParse(dt2018010106);
             chai_1.expect(tmp6dt2018010106.subtract(6, dateTimeParser_1.QinggerLibDateTime.DTItemKey.hours).toFormat()).eq("2018-01-01 00:00:00");
-            let tmpdt20171231171000 = dateTimeParse(dt20171231171000);
+            var tmpdt20171231171000 = dateTimeParse(dt20171231171000);
             chai_1.expect(tmpdt20171231171000.addDays(3).toFormat()).eq("2018-01-03 17:10:00");
             tmpdt20171231171000 = dateTimeParse(dt20171231171000);
             chai_1.expect(tmpdt20171231171000.subDays(3).toFormat()).eq("2017-12-28 17:10:00");
@@ -94,7 +94,7 @@ mocha_typescript_1.suite("DateTimeParser测试", function () {
         });
         it("end/start日期函数测试", function () {
             // end/start操作会改变日期数据，所以需要额外赋值变量
-            let tmpdt20171231171000 = dateTimeParse(dt20171231171000);
+            var tmpdt20171231171000 = dateTimeParse(dt20171231171000);
             chai_1.expect(tmpdt20171231171000.startOfDay().toFormat()).eq('2017-12-31 00:00:00');
             tmpdt20171231171000 = dateTimeParse(dt20171231171000);
             chai_1.expect(tmpdt20171231171000.endOfDay().toFormat()).eq('2017-12-31 23:59:59');

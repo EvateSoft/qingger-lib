@@ -8,7 +8,7 @@
 
 import { suite, test, slow} from "mocha-typescript";
 import {expect} from "chai";
-import {QinggerLibDateTime} from "../../src/utils/dateTimeParser";
+import {QinggerLibDateTime} from "../../library/utils/dateTimeParser";
 import dateTimeParse = QinggerLibDateTime.dateTimeParse;
 import moment = require("moment");
 

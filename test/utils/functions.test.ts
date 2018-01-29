@@ -7,7 +7,7 @@
 
 import { suite, test, slow} from "mocha-typescript";
 import {expect} from "chai";
-import {QinggerLibUtils} from "../../src/utils/functions";
+import {QinggerLibUtils} from "../../library/utils/functions";
 
 suite("工具类函数测试(Util Functions Test)",function() {
 

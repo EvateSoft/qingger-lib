@@ -148,20 +148,20 @@ export declare namespace QinggerLibDateTime {
          * endofYear : 是计算一个日期对象当年结束的时间是多少
          * @return {DateTimeParser}
          */
-        endOfDay(): DateTimeParser;
-        startOfDay(): DateTimeParser;
-        endOfMonth(): DateTimeParser;
-        startOfMonth(): DateTimeParser;
-        endOfYear(): DateTimeParser;
-        startOfYear(): DateTimeParser;
-        endOfQuarter(): DateTimeParser;
-        startOfQuarter(): DateTimeParser;
-        endOfWeek(): DateTimeParser;
-        startOfWeek(): DateTimeParser;
-        endOfHour(): DateTimeParser;
-        startOfHour(): DateTimeParser;
-        endOfMinute(): DateTimeParser;
-        startOfMinute(): DateTimeParser;
+        endOfDay(): this;
+        startOfDay(): this;
+        endOfMonth(): this;
+        startOfMonth(): this;
+        endOfYear(): this;
+        startOfYear(): this;
+        endOfQuarter(): this;
+        startOfQuarter(): this;
+        endOfWeek(): this;
+        startOfWeek(): this;
+        endOfHour(): this;
+        startOfHour(): this;
+        endOfMinute(): this;
+        startOfMinute(): this;
         /**
          * 比较两个时间对象的差分
          * unit参数是差分的基准，可以是"month","day","year","minute","hour"...
@@ -197,6 +197,10 @@ export declare namespace QinggerLibDateTime {
          */
         toMomentObject(): Moment;
         toYear(): number;
+        /**
+         * 获得月份，对于moment来说，月份的索引是0-11,对于DateParser来说，索引是1-12
+         * @return {number}
+         */
         toMonth(): number;
         toDay(): number;
         toDayInWeek(): number;
