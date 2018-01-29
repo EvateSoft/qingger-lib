@@ -12,3 +12,6 @@ var dateTimeParser_1 = require("./library/utils/dateTimeParser");
 exports.QinggerLibDateTime = dateTimeParser_1.QinggerLibDateTime;
 var functions_1 = require("./library/utils/functions");
 exports.QinggerLibUtils = functions_1.QinggerLibUtils;
+var urlUtil_1 = require("./library/utils/urlUtil");
+exports.QinggerLibURL = urlUtil_1.QinggerLibURL;
+//# sourceMappingURL=index.js.map

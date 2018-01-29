@@ -5,11 +5,11 @@
  * Time: 22:48
  */
 
-
 export interface ItemObject extends Object {
     [key: string] : any
 }
 export interface AnyObject extends ItemObject{}
+
 
 
 /**
@@ -44,3 +44,6 @@ export type ItemObjectArray = Array<ItemObject>;
 export type NumberArray = Array<number>;
 export type StringArray = Array<string>;
 export type ItemArray<T=any> = Array<T>;
+
+
+

@@ -9,7 +9,7 @@ import { suite, test, slow} from "mocha-typescript";
 import {expect} from "chai";
 import {QinggerLibUtils} from "../../library/utils/functions";
 
-suite("工具类函数测试(Util Functions Test)",function() {
+suite.skip("工具类函数测试(Util Functions Test)",function() {
 
     suite("1.empty函数测试:",function(){
         let emptyVars = [[],undefined,null,{},0,''];

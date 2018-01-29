@@ -30,7 +30,7 @@ function formatDate(dateObj:Date,fmt:string) { //author: meizz
     return fmt;
 }
 
-suite("DateTimeParser测试",function(){
+suite.skip("DateTimeParser测试",function(){
     let dtNow = null;
     let dtDateNow = null;
     let dt2018010106, dt20171231171000,dtMoment20170110,dtTimestamp20180111235959,dtNowCopy = null;

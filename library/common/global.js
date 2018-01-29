@@ -55,3 +55,4 @@ var QinggerLibVars;
     QinggerLibVars.SORT_SQL_ASCENDING = 'asc'; // sql ascending order
     QinggerLibVars.SORT_SQL_DESCENDING = 'desc'; // sql descending order
 })(QinggerLibVars = exports.QinggerLibVars || (exports.QinggerLibVars = {}));
+//# sourceMappingURL=global.js.map
