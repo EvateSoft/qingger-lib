@@ -86,6 +86,7 @@ var QinggerLibUtils;
         return new Promise(resolve => setTimeout(resolve, ms));
     }
     QinggerLibUtils.timeout = timeout;
+
     /**
      * sleep函数封装
      * @param ts
