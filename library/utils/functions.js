@@ -6,8 +6,8 @@
  * Time: 22:50
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const _ = require("lodash");
-const hasValue = require("has-value");
+var _ = require("lodash");
+var hasValue = require("has-value");
 var QinggerLibUtils;
 (function (QinggerLibUtils) {
     /**
@@ -16,7 +16,8 @@ var QinggerLibUtils;
      * @param {string} props
      * @returns {boolean}
      */
-    function empty(val, props = null) {
+    function empty(val, props) {
+        if (props === void 0) { props = null; }
         if (!val)
             return true;
         if (_.isNumber(val) || _.isString(val) || _.isBoolean(val)) {
@@ -31,7 +32,8 @@ var QinggerLibUtils;
      * @param val
      * @param {string} props
      */
-    function isset(val, props = null) {
+    function isset(val, props) {
+        if (props === void 0) { props = null; }
         if (val == 0 || val == false) {
             return true;
         }
@@ -47,7 +49,8 @@ var QinggerLibUtils;
      * @param {number} index
      * @return {boolean}
      */
-    function inArray(search, arr, index = 0) {
+    function inArray(search, arr, index) {
+        if (index === void 0) { index = 0; }
         if (_.isArray(arr)) {
             return arr.includes(search, index);
         }
@@ -62,8 +65,8 @@ var QinggerLibUtils;
      * @return {any[]}
      */
     function generateIndexArray(index) {
-        let ret = new Array(index);
-        for (let i = 0; i < index; i++) {
+        var ret = new Array(index);
+        for (var i = 0; i < index; i++) {
             ret[i] = i;
         }
         return ret;
@@ -75,7 +78,9 @@ var QinggerLibUtils;
      * @param max
      * @return {any}
      */
-    function getRandomInt(min = 0, max = 999999999) {
+    function getRandomInt(min, max) {
+        if (min === void 0) { min = 0; }
+        if (max === void 0) { max = 999999999; }
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
@@ -100,11 +105,14 @@ var QinggerLibUtils;
      * @param args
      * @return {Promise<any>}
      */
-    function sleep(ts, fn, ...args) {
+    function sleep(ts, fn) {
+        var args = [];
+        for (var _i = 2; _i < arguments.length; _i++) {
+            args[_i - 2] = arguments[_i];
+        }
         timeout(ts).then(function () {
-            return fn(...args);
+            return fn.apply(void 0, args);
         });
     }
     QinggerLibUtils.sleep = sleep;
 })(QinggerLibUtils = exports.QinggerLibUtils || (exports.QinggerLibUtils = {}));
-//# sourceMappingURL=functions.js.map
