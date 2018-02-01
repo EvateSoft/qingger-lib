@@ -11,6 +11,7 @@ import {expect} from "chai";
 import {QinggerLibDateTime} from "../../library/utils/dateTimeParser";
 import dateTimeParse = QinggerLibDateTime.dateTimeParse;
 import moment = require("moment");
+import DTItemKey = QinggerLibDateTime.DTItemKey;
 
 function formatDate(dateObj:Date,fmt:string) { //author: meizz
     let o = {
@@ -72,21 +73,10 @@ suite("DateTimeParser测试",function(){
 
         it("add/subtract日期加减函数测试",function () {
             // 因add/subtract操作会改变自身，所以需要额外赋值变量
-            let tmp1dt2018010106 = dateTimeParse(dt2018010106);
-            expect(tmp1dt2018010106.add(1,"month").toMonth()).eq(2);
-
-            let tmp2dt2018010106 = dateTimeParse(dt2018010106);
-            expect(tmp2dt2018010106.add(10,"day").toFormat()).eq("2018-01-11 06:00:00");
-
-            let tmp3dt2018010106 = dateTimeParse(dt2018010106);
-            expect(tmp3dt2018010106.add(10,QinggerLibDateTime.DTItemKey.minutes).toFormat()).eq("2018-01-01 06:10:00");
 
             let tmp4dt2018010106 = dateTimeParse(dt2018010106);
-            expect(tmp4dt2018010106.subtract(12,QinggerLibDateTime.DTItemKey.months).toYear()).eq(2017);
-            let tmp5dt2018010106 = dateTimeParse(dt2018010106);
-            expect(tmp5dt2018010106.subtract(2,QinggerLibDateTime.DTItemKey.years).toYear()).eq(2016);
-            let tmp6dt2018010106 = dateTimeParse(dt2018010106);
-            expect(tmp6dt2018010106.subtract(6,QinggerLibDateTime.DTItemKey.hours).toFormat()).eq("2018-01-01 00:00:00");
+            let subUnitForMonth = tmp4dt2018010106.subUnit(DTItemKey.months);
+            expect(subUnitForMonth(12).toYear()).eq(2017);
 
 
             let tmpdt20171231171000 = dateTimeParse(dt20171231171000);

@@ -155,7 +155,6 @@ suite("HttpClient对象测试",function(){
             }).catch(function(err){
                 console.log(err);
             });
-            console.log(httpClient.getHttpClientRequestData());
         })
     });
 

@@ -11,6 +11,7 @@ var chai_1 = require("chai");
 var dateTimeParser_1 = require("../../library/utils/dateTimeParser");
 var dateTimeParse = dateTimeParser_1.QinggerLibDateTime.dateTimeParse;
 var moment = require("moment");
+var DTItemKey = dateTimeParser_1.QinggerLibDateTime.DTItemKey;
 function formatDate(dateObj, fmt) {
     var o = {
         "M+": dateObj.getMonth() + 1,
@@ -59,18 +60,9 @@ mocha_typescript_1.suite("DateTimeParser测试", function () {
         });
         it("add/subtract日期加减函数测试", function () {
             // 因add/subtract操作会改变自身，所以需要额外赋值变量
-            var tmp1dt2018010106 = dateTimeParse(dt2018010106);
-            chai_1.expect(tmp1dt2018010106.add(1, "month").toMonth()).eq(2);
-            var tmp2dt2018010106 = dateTimeParse(dt2018010106);
-            chai_1.expect(tmp2dt2018010106.add(10, "day").toFormat()).eq("2018-01-11 06:00:00");
-            var tmp3dt2018010106 = dateTimeParse(dt2018010106);
-            chai_1.expect(tmp3dt2018010106.add(10, dateTimeParser_1.QinggerLibDateTime.DTItemKey.minutes).toFormat()).eq("2018-01-01 06:10:00");
             var tmp4dt2018010106 = dateTimeParse(dt2018010106);
-            chai_1.expect(tmp4dt2018010106.subtract(12, dateTimeParser_1.QinggerLibDateTime.DTItemKey.months).toYear()).eq(2017);
-            var tmp5dt2018010106 = dateTimeParse(dt2018010106);
-            chai_1.expect(tmp5dt2018010106.subtract(2, dateTimeParser_1.QinggerLibDateTime.DTItemKey.years).toYear()).eq(2016);
-            var tmp6dt2018010106 = dateTimeParse(dt2018010106);
-            chai_1.expect(tmp6dt2018010106.subtract(6, dateTimeParser_1.QinggerLibDateTime.DTItemKey.hours).toFormat()).eq("2018-01-01 00:00:00");
+            var subUnitForMonth = tmp4dt2018010106.subUnit(DTItemKey.months);
+            chai_1.expect(subUnitForMonth(12).toYear()).eq(2017);
             var tmpdt20171231171000 = dateTimeParse(dt20171231171000);
             chai_1.expect(tmpdt20171231171000.addDays(3).toFormat()).eq("2018-01-03 17:10:00");
             tmpdt20171231171000 = dateTimeParse(dt20171231171000);

@@ -115,119 +115,57 @@ export namespace QinggerLibDateTime {
         }
 
 
-
         /**
-         * 时间日期相加操作
-         * @param {moment.DurationInputArg1} amount
-         * @param {moment.DurationInputArg2} unit
-         * @return {DateTimeParser}
+         * addXX的高阶函数
+         * @param {QinggerLibDateTime.DTItemKey} unit
+         * @return {(amount?: DurationInputArg1) => DateTimeParser}
          */
-        public add(amount?: DurationInputArg1, unit?: DurationInputArg2) {
-            return new DateTimeParser(this.momentObject.add(amount,unit));
-        }
-
-
-        /**
-         * 时间日期相减操作
-         * @param {DurationInputArg1} amount
-         * @param {DurationInputArg2} unit
-         * @return {DateTimeParser}
-         */
-        public subtract(amount?: DurationInputArg1, unit?: DurationInputArg2) {
-            return new DateTimeParser(this.momentObject.subtract(amount,unit));
+        public addUnit(unit:DTItemKey) {
+            let self = this;
+            return function (amount? : DurationInputArg1) {
+                return new DateTimeParser(self.momentObject.add(amount,unit));
+            }
         }
 
         /**
-         * 将一个对象加几天
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
+         * subXX的高阶函数
+         * @param {QinggerLibDateTime.DTItemKey} unit
+         * @return {(amount?: DurationInputArg1) => DateTimeParser}
          */
-        public addDays(amount? :  DurationInputArg1) {
-            return this.add(amount,'days');
+        public subUnit(unit:DTItemKey) {
+            let self = this;
+            return function subAmount(amount? : DurationInputArg1) {
+                return new DateTimeParser(self.momentObject.subtract(amount,unit));
+            }
         }
 
         /**
-         * 将一个对象减几天
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
+         * add("day")的偏函数
+         * @type {(amount?: DurationInputArg1) => DateTimeParser}
          */
-        public subDays(amount? : DurationInputArg1) {
-            return this.subtract(amount,'days');
-        }
+        public addDays = this.addUnit(DTItemKey.days);
+        public addMonth = this.addUnit(DTItemKey.months);
+        public addYear = this.addUnit(DTItemKey.years);
+        public addHour = this.addUnit(DTItemKey.hours);
+        public addMinute = this.addUnit(DTItemKey.minutes);
 
 
-        /**
-         * 加月
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        public addMonth(amount? :  DurationInputArg1) {
-            return this.add(amount,'months');
-        }
+        public subDays = this.subUnit(DTItemKey.days);
+        public subMonth = this.subUnit(DTItemKey.months);
+        public subYear = this.subUnit(DTItemKey.years);
+        public subHour = this.subUnit(DTItemKey.hours);
+        public subMinute = this.subUnit(DTItemKey.minutes);
 
-        /**
-         * 减月
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        public subMonth(amount? :  DurationInputArg1) {
-            return this.subtract(amount, 'months');
-        }
+        // /**
+        //  * 将一个对象加几天
+        //  * @param {DurationInputArg1} amount
+        //  * @return {DateTimeParser}
+        //  */
+        // public addDays(amount? :  DurationInputArg1) {
+        //     // return this.addUnit(DTItemKey.days)(amount);
+        //     // return this.add(amount,'days');
+        // }
 
-        /**
-         * 加年
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        public addYear(amount? :  DurationInputArg1) {
-            return this.add(amount,'years');
-        }
-
-        /**
-         * 减年
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        public subYear(amount? :  DurationInputArg1) {
-            return this.subtract(amount, 'years');
-        }
-
-        /**
-         * 加小时
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        public addHour(amount? :  DurationInputArg1) {
-            return this.add(amount,'hours');
-        }
-
-        /**
-         * 减小时
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        public subHour(amount? :  DurationInputArg1) {
-            return this.subtract(amount, 'hours');
-        }
-
-
-        /**
-         * 加分钟
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        public addMinute(amount? :  DurationInputArg1) {
-            return this.add(amount,'minutes');
-        }
-
-        /**
-         * 减分钟
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        public subMinute(amount? :  DurationInputArg1) {
-            return this.subtract(amount, 'minutes');
-        }
 
 
         /**

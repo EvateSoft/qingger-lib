@@ -68,79 +68,31 @@ export declare namespace QinggerLibDateTime {
          */
         constructor(dt?: DTParam);
         /**
-         * 时间日期相加操作
-         * @param {moment.DurationInputArg1} amount
-         * @param {moment.DurationInputArg2} unit
-         * @return {DateTimeParser}
+         * addXX的高阶函数
+         * @param {QinggerLibDateTime.DTItemKey} unit
+         * @return {(amount?: DurationInputArg1) => DateTimeParser}
          */
-        add(amount?: DurationInputArg1, unit?: DurationInputArg2): DateTimeParser;
+        addUnit(unit: DTItemKey): (amount?: DurationInputArg1) => DateTimeParser;
         /**
-         * 时间日期相减操作
-         * @param {DurationInputArg1} amount
-         * @param {DurationInputArg2} unit
-         * @return {DateTimeParser}
+         * subXX的高阶函数
+         * @param {QinggerLibDateTime.DTItemKey} unit
+         * @return {(amount?: DurationInputArg1) => DateTimeParser}
          */
-        subtract(amount?: DurationInputArg1, unit?: DurationInputArg2): DateTimeParser;
+        subUnit(unit: DTItemKey): (amount?: DurationInputArg1) => DateTimeParser;
         /**
-         * 将一个对象加几天
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
+         * add("day")的偏函数
+         * @type {(amount?: DurationInputArg1) => DateTimeParser}
          */
-        addDays(amount?: DurationInputArg1): DateTimeParser;
-        /**
-         * 将一个对象减几天
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        subDays(amount?: DurationInputArg1): DateTimeParser;
-        /**
-         * 加月
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        addMonth(amount?: DurationInputArg1): DateTimeParser;
-        /**
-         * 减月
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        subMonth(amount?: DurationInputArg1): DateTimeParser;
-        /**
-         * 加年
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        addYear(amount?: DurationInputArg1): DateTimeParser;
-        /**
-         * 减年
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        subYear(amount?: DurationInputArg1): DateTimeParser;
-        /**
-         * 加小时
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        addHour(amount?: DurationInputArg1): DateTimeParser;
-        /**
-         * 减小时
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        subHour(amount?: DurationInputArg1): DateTimeParser;
-        /**
-         * 加分钟
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        addMinute(amount?: DurationInputArg1): DateTimeParser;
-        /**
-         * 减分钟
-         * @param {DurationInputArg1} amount
-         * @return {DateTimeParser}
-         */
-        subMinute(amount?: DurationInputArg1): DateTimeParser;
+        addDays: (amount?: DurationInputArg1) => DateTimeParser;
+        addMonth: (amount?: DurationInputArg1) => DateTimeParser;
+        addYear: (amount?: DurationInputArg1) => DateTimeParser;
+        addHour: (amount?: DurationInputArg1) => DateTimeParser;
+        addMinute: (amount?: DurationInputArg1) => DateTimeParser;
+        subDays: (amount?: DurationInputArg1) => DateTimeParser;
+        subMonth: (amount?: DurationInputArg1) => DateTimeParser;
+        subYear: (amount?: DurationInputArg1) => DateTimeParser;
+        subHour: (amount?: DurationInputArg1) => DateTimeParser;
+        subMinute: (amount?: DurationInputArg1) => DateTimeParser;
         /**
          * 以下以end/start开头的所有操作函数是用来计算日期的开头或结尾
          * endOfDay : 是计算一个日期对象当天最开始的时间是多少

@@ -131,7 +131,6 @@ mocha_typescript_1.suite("HttpClient对象测试", function () {
             }).catch(function (err) {
                 console.log(err);
             });
-            console.log(httpClient.getHttpClientRequestData());
         });
     });
     mocha_typescript_1.suite("4.sendRequestWithToken函数测试", function () {
