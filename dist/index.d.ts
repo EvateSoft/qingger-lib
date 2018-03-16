@@ -9,3 +9,4 @@ export { QinggerLibDateTime } from "./library/utils/dateTimeParser";
 export { QinggerLibUtils } from "./library/utils/functions";
 export { QinggerLibURL } from "./library/utils/urlUtil";
 export { QinggerHttpClient } from "./library/httpClient/httpClient";
+export * from "./library/httpClient/baseHttpClientType";

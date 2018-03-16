@@ -57,7 +57,6 @@ suite("工具类函数测试(Util Functions Test)",function() {
             trueResults.forEach(function(testRet){
                 expect(testRet).to.eq(true);
             });
-
         });
 
         it("对象和对象属性不存在返回false",function () {
@@ -85,7 +84,7 @@ suite("工具类函数测试(Util Functions Test)",function() {
         });
     });
 
-    suite("4.inArray函数测试:",function () {
+    describe("4.inArray函数测试:",function () {
         let testArray = [1,'a',{attr:1},1,true,[2,3]];
 
         it("在Array中存在基本类型数据的能返回true",function () {
@@ -106,7 +105,7 @@ suite("工具类函数测试(Util Functions Test)",function() {
             expect([notPos1,notPos2]).to.deep.equal([false, false]);
         });
 
-        it("在Array中查找Object/Array数据返回false",function(){
+        it("在Array中查找Object/Array数据返回false",function() {
             let inPosObj = QinggerLibUtils.inArray({attr:1},testArray);
             let inPosArray = QinggerLibUtils.inArray([2,3],testArray);
             expect([inPosObj,inPosArray]).to.deep.equal([false, false]);

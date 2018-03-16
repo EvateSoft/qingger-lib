@@ -76,7 +76,7 @@ mocha_typescript_1.suite("工具类函数测试(Util Functions Test)", function 
             chai_1.expect(giArr[99]).to.equal(99);
         });
     });
-    mocha_typescript_1.suite("4.inArray函数测试:", function () {
+    describe("4.inArray函数测试:", function () {
         var testArray = [1, 'a', { attr: 1 }, 1, true, [2, 3]];
         it("在Array中存在基本类型数据的能返回true", function () {
             var inPos0 = functions_1.QinggerLibUtils.inArray(1, testArray);

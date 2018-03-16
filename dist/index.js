@@ -1,4 +1,7 @@
 "use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Created by Qingger Corp.
@@ -16,3 +19,4 @@ var urlUtil_1 = require("./library/utils/urlUtil");
 exports.QinggerLibURL = urlUtil_1.QinggerLibURL;
 var httpClient_1 = require("./library/httpClient/httpClient");
 exports.QinggerHttpClient = httpClient_1.QinggerHttpClient;
+__export(require("./library/httpClient/baseHttpClientType"));
