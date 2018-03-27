@@ -255,9 +255,9 @@ var QinggerHttpClient;
             }).catch(function (err) {
                 throw {
                     code: QinggerHttpClient.ERR_HTTP_REQUEST_ERROR,
-                    status: err.response.status,
-                    message: err.response.statusText,
-                    data: err.response.data
+                    status: err.response ? (err.response.status || 404) : 404,
+                    message: err.response ? (err.response.statusText || '') : '',
+                    data: err.response ? (err.response.data || {}) : {}
                 };
             });
         }
