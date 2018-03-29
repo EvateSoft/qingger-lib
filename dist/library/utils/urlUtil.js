@@ -33,11 +33,17 @@ var QinggerLibURL;
          */
         static ProcessCorrectURL(url) {
             if (!url) {
-                return url;
+                return '';
+                //return url;
             }
-            if (!url.match(/^(http[s]?|ftp):\/\//)) {
-                url = 'http://' + url;
-            }
+            // // 如果URL上首字母是/
+            // if (url.map(/^\//)) {
+            //     return url;
+            // }
+            //
+            // if (!url.match(/^(http[s]?|ftp):\/\//)) {
+            //    url = 'http://'+url;
+            // }
             return url;
         }
         /**
