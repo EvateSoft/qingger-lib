@@ -57,6 +57,7 @@ export interface BaseHttpRequestOption {
     reqLimit?: number;
     queryParams?: Array<any>;
     postParams?: Array<any>;
+    tokenType? : string;
 }
 /**
  * 调用时请求的参数
