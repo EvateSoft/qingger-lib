@@ -48,7 +48,7 @@ export enum HttpMethod {
 /**
  * 应用API的提交请求的基本信息
  */
-export interface BaseHttpRequestOption {
+export interface BaseHttpRequestOption extends ItemObject {
     name        : string;
     baseURL     : string;
     path        : string;
@@ -64,12 +64,13 @@ export interface BaseHttpRequestOption {
     reqLimit?   : number;         // 请求的限制时间(seconds)
     queryParams? : Array<any>;
     postParams? : Array<any>;
+    tokenType? : string;
 }
 
 /**
  * 调用时请求的参数
  */
-export interface BaseHttpRequestParams {
+export interface BaseHttpRequestParams extends ItemObject {
     queryParams? : ItemObject;
     postParams?  : ItemObject;
     pathParams?  : ItemObject;
