@@ -214,7 +214,7 @@ export namespace QinggerHttpClient {
          */
         public setPathParams(pathParams:ItemObject) : HttpClient {
             if (isset(this.baseHttpRequestOptions,"path")) {
-                this.urlPath = format(this.baseHttpRequestOptions.path,pathParams);
+                this.urlPath = format(this.urlPath,pathParams);
             }
 
             return this;
