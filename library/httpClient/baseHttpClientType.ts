@@ -62,8 +62,8 @@ export interface BaseHttpRequestOption extends ItemObject {
     fromJson?   : boolean;
     authTokenKey? : string;       // 定义包装TOKEN的HEADER的key名称
     reqLimit?   : number;         // 请求的限制时间(seconds)
-    queryParams? : Array<any>;
-    postParams? : Array<any>;
+    queryParams? : any;
+    postParams? : any;
     tokenType? : string;
 }
 

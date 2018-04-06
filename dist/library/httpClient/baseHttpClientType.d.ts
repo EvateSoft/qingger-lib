@@ -55,8 +55,8 @@ export interface BaseHttpRequestOption extends ItemObject {
     fromJson?: boolean;
     authTokenKey?: string;
     reqLimit?: number;
-    queryParams?: Array<any>;
-    postParams?: Array<any>;
+    queryParams?: any;
+    postParams?: any;
     tokenType?: string;
 }
 /**
