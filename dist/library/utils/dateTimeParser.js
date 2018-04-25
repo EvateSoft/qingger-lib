@@ -6,11 +6,11 @@
  * Time: 22:56
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const moment = require('moment');
-const _ = require("lodash");
+var moment = require('moment');
+var _ = require("lodash");
 var QinggerLibDateTime;
 (function (QinggerLibDateTime) {
-    let TimestampType;
+    var TimestampType;
     (function (TimestampType) {
         TimestampType[TimestampType["TS_SECOND"] = 0] = "TS_SECOND";
         TimestampType[TimestampType["TS_MILLISECOND"] = 1] = "TS_MILLISECOND";
@@ -23,7 +23,7 @@ var QinggerLibDateTime;
     /**
      * 时间格式化方式
      */
-    let DTFormatType;
+    var DTFormatType;
     (function (DTFormatType) {
         DTFormatType["YMDHMS"] = "YYYY-MM-DD HH:mm:ss";
         DTFormatType["YMD"] = "YYYY-MM-DD";
@@ -32,7 +32,7 @@ var QinggerLibDateTime;
     /**
      * moment库中使用到的一些常量定义
      */
-    let DTItemKey;
+    var DTItemKey;
     (function (DTItemKey) {
         DTItemKey["years"] = "years";
         DTItemKey["quarters"] = "quarters";
@@ -47,7 +47,7 @@ var QinggerLibDateTime;
     /**
      * Qingger-DateTimeParser处理日期时间类
      */
-    class DateTimeParser {
+    var DateTimeParser = /** @class */ (function () {
         /**
          * DateTimeParse构造函数
          * @param {DTParam} dt : 参数值
@@ -58,7 +58,7 @@ var QinggerLibDateTime;
          *  4) DateTimeParser对象，
          *  5) 空值, 空值的情况下返回当前时间
          */
-        constructor(dt) {
+        function DateTimeParser(dt) {
             /**
              * moment对象实例
              * @type {Moment}
@@ -108,40 +108,40 @@ var QinggerLibDateTime;
          * @return {TimestampType}
          * @constructor
          */
-        static CheckTimeStampType(ts) {
+        DateTimeParser.CheckTimeStampType = function (ts) {
             return ts < 9999999999 ? TimestampType.TS_SECOND : TimestampType.TS_MILLISECOND;
-        }
+        };
         /**
          * static : 将时间戳转换成moment对象(支持秒和毫秒)
          * @param {number} ts
          * @return {moment.Moment}
          * @constructor
          */
-        static ParseMomentFromNumber(ts) {
+        DateTimeParser.ParseMomentFromNumber = function (ts) {
             return DateTimeParser.CheckTimeStampType(ts) == TimestampType.TS_MILLISECOND ? moment(ts) : moment.unix(ts);
-        }
+        };
         /**
          * addXX的高阶函数
          * @param {QinggerLibDateTime.DTItemKey} unit
          * @return {(amount?: DurationInputArg1) => DateTimeParser}
          */
-        addUnit(unit) {
-            let self = this;
+        DateTimeParser.prototype.addUnit = function (unit) {
+            var self = this;
             return function (amount) {
                 return new DateTimeParser(self.momentObject.add(amount, unit));
             };
-        }
+        };
         /**
          * subXX的高阶函数
          * @param {QinggerLibDateTime.DTItemKey} unit
          * @return {(amount?: DurationInputArg1) => DateTimeParser}
          */
-        subUnit(unit) {
-            let self = this;
+        DateTimeParser.prototype.subUnit = function (unit) {
+            var self = this;
             return function subAmount(amount) {
                 return new DateTimeParser(self.momentObject.subtract(amount, unit));
             };
-        }
+        };
         // /**
         //  * 将一个对象加几天
         //  * @param {DurationInputArg1} amount
@@ -158,23 +158,23 @@ var QinggerLibDateTime;
          * endofYear : 是计算一个日期对象当年结束的时间是多少
          * @return {DateTimeParser}
          */
-        endOfDay() {
+        DateTimeParser.prototype.endOfDay = function () {
             this.momentObject.endOf("day");
             return this;
-        }
-        startOfDay() { this.momentObject.startOf("day"); return this; }
-        endOfMonth() { this.momentObject.endOf("month"); return this; }
-        startOfMonth() { this.momentObject.startOf("month"); return this; }
-        endOfYear() { this.momentObject.endOf("year"); return this; }
-        startOfYear() { this.momentObject.startOf("year"); return this; }
-        endOfQuarter() { this.momentObject.endOf("quarter"); return this; }
-        startOfQuarter() { this.momentObject.startOf("quarter"); return this; }
-        endOfWeek() { this.momentObject.endOf("week"); return this; }
-        startOfWeek() { this.momentObject.startOf("week"); return this; }
-        endOfHour() { this.momentObject.endOf("hour"); return this; }
-        startOfHour() { this.momentObject.startOf("hour"); return this; }
-        endOfMinute() { this.momentObject.endOf("minute"); return this; }
-        startOfMinute() { this.momentObject.startOf("minute"); return this; }
+        };
+        DateTimeParser.prototype.startOfDay = function () { this.momentObject.startOf("day"); return this; };
+        DateTimeParser.prototype.endOfMonth = function () { this.momentObject.endOf("month"); return this; };
+        DateTimeParser.prototype.startOfMonth = function () { this.momentObject.startOf("month"); return this; };
+        DateTimeParser.prototype.endOfYear = function () { this.momentObject.endOf("year"); return this; };
+        DateTimeParser.prototype.startOfYear = function () { this.momentObject.startOf("year"); return this; };
+        DateTimeParser.prototype.endOfQuarter = function () { this.momentObject.endOf("quarter"); return this; };
+        DateTimeParser.prototype.startOfQuarter = function () { this.momentObject.startOf("quarter"); return this; };
+        DateTimeParser.prototype.endOfWeek = function () { this.momentObject.endOf("week"); return this; };
+        DateTimeParser.prototype.startOfWeek = function () { this.momentObject.startOf("week"); return this; };
+        DateTimeParser.prototype.endOfHour = function () { this.momentObject.endOf("hour"); return this; };
+        DateTimeParser.prototype.startOfHour = function () { this.momentObject.startOf("hour"); return this; };
+        DateTimeParser.prototype.endOfMinute = function () { this.momentObject.endOf("minute"); return this; };
+        DateTimeParser.prototype.startOfMinute = function () { this.momentObject.startOf("minute"); return this; };
         /**
          * 比较两个时间对象的差分
          * unit参数是差分的基准，可以是"month","day","year","minute","hour"...
@@ -182,8 +182,8 @@ var QinggerLibDateTime;
          * @param {DurationInputArg2} unit
          * @return {any}
          */
-        toDiff(dt, unit) {
-            let otherObj = null;
+        DateTimeParser.prototype.toDiff = function (dt, unit) {
+            var otherObj = null;
             if (dt instanceof DateTimeParser) {
                 otherObj = dt;
             }
@@ -191,17 +191,17 @@ var QinggerLibDateTime;
                 otherObj = new DateTimeParser(dt);
             }
             return this.momentObject.diff(otherObj.momentObject, unit);
-        }
+        };
         /**
          * 两个日期对象上日的差分
          * 备注 : toDiffXXX 函数都是返回两个日期对象相隔的差分值
          * @param {DTParam} dt
          * @return {any}
          */
-        toDiffDay(dt) { return this.toDiff(dt, 'day'); }
-        toDiffMonth(dt) {
+        DateTimeParser.prototype.toDiffDay = function (dt) { return this.toDiff(dt, 'day'); };
+        DateTimeParser.prototype.toDiffMonth = function (dt) {
             // return this.toDiff(dt,'month');
-            let otherObj = null;
+            var otherObj = null;
             if (dt instanceof DateTimeParser) {
                 otherObj = dt;
             }
@@ -209,68 +209,70 @@ var QinggerLibDateTime;
                 otherObj = new DateTimeParser(dt);
             }
             return moment(this.momentObject.format("YYYY-MM")).diff(moment(otherObj.momentObject.format("YYYY-MM")), "month");
-        }
-        toDiffYear(dt) { return this.toDiff(dt, 'year'); }
-        toDiffWeek(dt) { return this.toDiff(dt, 'week'); }
-        toDiffQuarter(dt) { return this.toDiff(dt, 'quarter'); }
-        toDiffHour(dt) { return this.toDiff(dt, 'hour'); }
-        toDiffMinute(dt) { return this.toDiff(dt, 'minute'); }
-        toDiffSecond(dt) { return this.toDiff(dt, 'second'); }
-        toDiffMilliSecond(dt) { return this.toDiff(dt, 'millisecond'); }
+        };
+        DateTimeParser.prototype.toDiffYear = function (dt) { return this.toDiff(dt, 'year'); };
+        DateTimeParser.prototype.toDiffWeek = function (dt) { return this.toDiff(dt, 'week'); };
+        DateTimeParser.prototype.toDiffQuarter = function (dt) { return this.toDiff(dt, 'quarter'); };
+        DateTimeParser.prototype.toDiffHour = function (dt) { return this.toDiff(dt, 'hour'); };
+        DateTimeParser.prototype.toDiffMinute = function (dt) { return this.toDiff(dt, 'minute'); };
+        DateTimeParser.prototype.toDiffSecond = function (dt) { return this.toDiff(dt, 'second'); };
+        DateTimeParser.prototype.toDiffMilliSecond = function (dt) { return this.toDiff(dt, 'millisecond'); };
         /**
          * 将日期对象进行格式化,默认为"YYYY-MM-DD HH:mm:SS"
          * @param {string} fmt : 格式化参数
          * @return {string}
          */
-        toFormat(fmt = null) {
+        DateTimeParser.prototype.toFormat = function (fmt) {
+            if (fmt === void 0) { fmt = null; }
             return fmt ? this.momentObject.format(fmt) : this.momentObject.format(DTFormatType.YMDHMS);
-        }
+        };
         /**
          * 将本日期对象转换为moment类型对象
          * @return {Moment}
          */
-        toMomentObject() {
+        DateTimeParser.prototype.toMomentObject = function () {
             return this.momentObject;
-        }
-        toYear() {
+        };
+        DateTimeParser.prototype.toYear = function () {
             return this.momentObject.year();
-        }
+        };
         /**
          * 获得月份，对于moment来说，月份的索引是0-11,对于DateParser来说，索引是1-12
          * @return {number}
          */
-        toMonth() {
+        DateTimeParser.prototype.toMonth = function () {
             return this.momentObject.month() + 1;
-        }
-        toDay() {
+        };
+        DateTimeParser.prototype.toDay = function () {
             return this.momentObject.date();
-        }
-        toDayInWeek() {
+        };
+        DateTimeParser.prototype.toDayInWeek = function () {
             return this.momentObject.day();
-        }
-        toHour() {
+        };
+        DateTimeParser.prototype.toHour = function () {
             return this.momentObject.hour();
-        }
-        toMinute() {
+        };
+        DateTimeParser.prototype.toMinute = function () {
             return this.momentObject.minute();
-        }
-        toSecond() {
+        };
+        DateTimeParser.prototype.toSecond = function () {
             return this.momentObject.second();
-        }
-        toMilliSecond() {
+        };
+        DateTimeParser.prototype.toMilliSecond = function () {
             return this.momentObject.millisecond();
-        }
-        toUnixTimestamp() {
+        };
+        DateTimeParser.prototype.toUnixTimestamp = function () {
             return this.momentObject.unix();
-        }
+        };
         /**
          * 为1970-1-1那一天距此日期对象的天数
          * @return {number}
          */
-        toInDays() {
+        DateTimeParser.prototype.toInDays = function () {
             return this.momentObject.diff(moment(QinggerLibDateTime.BEGIN_DATE), DTItemKey.days);
-        }
-    }
+        };
+        return DateTimeParser;
+    }());
     QinggerLibDateTime.DateTimeParser = DateTimeParser;
     /**
      * 实例化DateTimeParser类

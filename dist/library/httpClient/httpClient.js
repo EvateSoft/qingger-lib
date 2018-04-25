@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Date: 2018/1/29
  * Time: 15:53
  */
-const baseHttpClientType_1 = require("./baseHttpClientType");
-const functions_1 = require("../utils/functions");
-const urlUtil_1 = require("../utils/urlUtil");
-const _ = require("lodash");
-const format = require("string-template");
-const axios = require('axios');
+var baseHttpClientType_1 = require("./baseHttpClientType");
+var functions_1 = require("../utils/functions");
+var urlUtil_1 = require("../utils/urlUtil");
+var _ = require("lodash");
+var format = require("string-template");
+var axios = require('axios');
 /**
  * HTTP通信基础类(基于Axios)
  */
@@ -25,8 +25,9 @@ var QinggerHttpClient;
     /**
      * HTTP连接类
      */
-    class HttpClient {
-        constructor(requestOptions = null) {
+    var HttpClient = /** @class */ (function () {
+        function HttpClient(requestOptions) {
+            if (requestOptions === void 0) { requestOptions = null; }
             /** 认证类型 */
             this.authType = baseHttpClientType_1.BaseAuthType.NONE;
             this.method = baseHttpClientType_1.HttpMethod.GET;
@@ -36,7 +37,7 @@ var QinggerHttpClient;
             this.queryParams = {};
             this.timeout = 10000;
             this.requestName = '';
-            let defaultRequestConfig = requestOptions || {
+            var defaultRequestConfig = requestOptions || {
                 name: 'defaultName',
                 method: "GET",
                 baseURL: '',
@@ -52,7 +53,7 @@ var QinggerHttpClient;
          * 获取请求
          * @return ItemObject
          */
-        getHttpClientRequestData() {
+        HttpClient.prototype.getHttpClientRequestData = function () {
             return {
                 requestName: this.requestName,
                 requestOptions: this.baseHttpRequestOptions,
@@ -63,31 +64,31 @@ var QinggerHttpClient;
                 authType: this.authType,
                 headers: this.headers
             };
-        }
+        };
         /**
          * 将HTTP的response返回数据中data字段返回回去
          * @param {AxiosResponse} response
          * @return {any}
          * @constructor
          */
-        static ResolveHttpResponse(response) {
+        HttpClient.ResolveHttpResponse = function (response) {
             return response && response.data;
-        }
+        };
         /**
          * 检查HTTP Response 状态值
          * 状态值在200~400间为正常
          * @param {AxiosResponse} response
          * @return {AxiosResponse | boolean}
          */
-        static CheckHttpResponseStatus(response) {
+        HttpClient.CheckHttpResponseStatus = function (response) {
             return response && response.status >= 200 && response.status < 400;
-        }
+        };
         /**
          * 对于请求选项进行初始化
          * @param {BaseHttpRequestOption} options
          * @return {QinggerHttpClient.HttpClient}
          */
-        initRequestConfig(options) {
+        HttpClient.prototype.initRequestConfig = function (options) {
             this.clearAllParams();
             this.baseHttpRequestOptions = options;
             this.method = _.defaultTo(this.baseHttpRequestOptions.method, "GET");
@@ -98,22 +99,22 @@ var QinggerHttpClient;
             this.timeout = _.defaultTo(this.baseHttpRequestOptions.timeout, 10000);
             this.requestName = _.defaultTo(this.baseHttpRequestOptions.name, '');
             return this;
-        }
+        };
         /**
          * 清除掉requestParams
          * @returns {HttpClient}
          */
-        clearAllParams() {
+        HttpClient.prototype.clearAllParams = function () {
             this.queryParams = {};
             this.postParams = {};
             return this;
-        }
+        };
         /**
          * 设置认证信息
          * @param authInfo
          * @returns {HttpClient}
          */
-        auth(authInfo) {
+        HttpClient.prototype.auth = function (authInfo) {
             switch (this.authType) {
                 // 对于Token认证，设置头信息
                 case baseHttpClientType_1.BaseAuthType.TOKEN:
@@ -123,7 +124,7 @@ var QinggerHttpClient;
                             message: "AuthToken.token Not Set"
                         };
                     }
-                    let headerKey = !empty(authInfo.headerKey) ? authInfo.headerKey : "Authorization";
+                    var headerKey = !empty(authInfo.headerKey) ? authInfo.headerKey : "Authorization";
                     this.headers[headerKey] = "Bearer " + authInfo.token;
                     break;
                 case baseHttpClientType_1.BaseAuthType.CRM_AUTH:
@@ -131,7 +132,7 @@ var QinggerHttpClient;
                     break;
             }
             return this;
-        }
+        };
         /**
          * 设置Auth-Token
          * @param {string} token
@@ -139,7 +140,8 @@ var QinggerHttpClient;
          * @returns {HttpClient}
          * @throws {Error}
          */
-        authForToken(token, authTokenKey = null) {
+        HttpClient.prototype.authForToken = function (token, authTokenKey) {
+            if (authTokenKey === void 0) { authTokenKey = null; }
             if (empty(token)) {
                 throw {
                     code: QinggerHttpClient.ERR_DATA_TOKEN_NOT_VALID,
@@ -148,30 +150,30 @@ var QinggerHttpClient;
             }
             this.authType = baseHttpClientType_1.BaseAuthType.TOKEN;
             return this.auth({ token: token, headerKey: authTokenKey });
-        }
+        };
         /**
          * 设置URL Query Params
          * @param {ItemObject} queryParams
          * @returns {HttpClient}
          */
-        setQueryParams(queryParams) {
+        HttpClient.prototype.setQueryParams = function (queryParams) {
             if (!empty(queryParams)) {
                 this.queryParams = queryParams;
                 this.urlPath = urlUtil(this.urlPath).setUrlQueryParams(this.queryParams);
             }
             return this;
-        }
+        };
         /**
          * 设置POST数据
          * @param {ItemObject} postParams
          * @returns {HttpClient}
          */
-        setPostParams(postParams) {
+        HttpClient.prototype.setPostParams = function (postParams) {
             if (!empty(postParams)) {
                 this.postParams = postParams;
             }
             return this;
-        }
+        };
         /**
          * 设置路径上的参数进行路径值动态替换
          * @eg.
@@ -179,27 +181,27 @@ var QinggerHttpClient;
          * @param {ItemObject} pathParams
          * @returns {HttpClient}
          */
-        setPathParams(pathParams) {
+        HttpClient.prototype.setPathParams = function (pathParams) {
             if (isset(this.baseHttpRequestOptions, "path")) {
                 this.urlPath = format(this.urlPath, pathParams);
             }
             return this;
-        }
+        };
         /**
          * 增加Header节
          * @param {ItemObject} headerParams
          * @returns {HttpClient}
          */
-        addHeaders(headerParams) {
+        HttpClient.prototype.addHeaders = function (headerParams) {
             this.headers = _.merge({}, this.headers, headerParams);
             return this;
-        }
+        };
         /**
          * 设置Axios的请求体
          * @returns {AxiosRequestConfig}
          */
-        parseRequestOptions() {
-            let options = {
+        HttpClient.prototype.parseRequestOptions = function () {
+            var options = {
                 method: this.method,
                 baseURL: this.baseURL,
                 url: this.urlPath,
@@ -210,12 +212,12 @@ var QinggerHttpClient;
                 options["data"] = this.postParams;
             }
             return options;
-        }
+        };
         /**
          * @param {BaseHttpRequestParams} allParams
          * @returns {HttpClient}
          */
-        setAllParams(allParams) {
+        HttpClient.prototype.setAllParams = function (allParams) {
             if (empty(allParams)) {
                 return this;
             }
@@ -235,21 +237,23 @@ var QinggerHttpClient;
                 this.authForToken(allParams.authToken, allParams.authTokenKey || null);
             }
             return this;
-        }
+        };
         /**
          * 发送HTTP请求
          * @param {BaseHttpRequestOption} resOptions
          * @param {ItemObject} requestParams
          * @returns {Promise}
          */
-        sendRequest(resOptions = null, requestParams = null) {
+        HttpClient.prototype.sendRequest = function (resOptions, requestParams) {
+            if (resOptions === void 0) { resOptions = null; }
+            if (requestParams === void 0) { requestParams = null; }
             if (!empty(resOptions)) {
                 this.initRequestConfig(resOptions);
             }
             if (!empty(requestParams)) {
                 this.setAllParams(requestParams);
             }
-            let requestConfig = this.parseRequestOptions();
+            var requestConfig = this.parseRequestOptions();
             return axios(requestConfig).then(function (response) {
                 return HttpClient.ResolveHttpResponse(response);
             }).catch(function (err) {
@@ -260,7 +264,7 @@ var QinggerHttpClient;
                     data: err.response ? (err.response.data || {}) : {}
                 };
             });
-        }
+        };
         /**
          * 带有Token的API请求
          * @param {BaseHttpRequestOption} resOptions
@@ -269,24 +273,32 @@ var QinggerHttpClient;
          * @param cbArgs
          * @returns {Promise<AxiosResponse<any>>}
          */
-        sendRequestWithToken(resOptions = null, requestParams = null, authTokenCallback = null, ...cbArgs) {
+        HttpClient.prototype.sendRequestWithToken = function (resOptions, requestParams, authTokenCallback) {
+            if (resOptions === void 0) { resOptions = null; }
+            if (requestParams === void 0) { requestParams = null; }
+            if (authTokenCallback === void 0) { authTokenCallback = null; }
+            var cbArgs = [];
+            for (var _i = 3; _i < arguments.length; _i++) {
+                cbArgs[_i - 3] = arguments[_i];
+            }
             if (empty(authTokenCallback)) {
                 return this.sendRequest(resOptions, requestParams);
             }
             else {
-                let self = this;
-                let [cbCaller, ...othCbArgs] = cbArgs;
-                return authTokenCallback.call(cbCaller, ...othCbArgs).then(function (token) {
+                var self_1 = this;
+                var cbCaller = cbArgs[0], othCbArgs = cbArgs.slice(1);
+                return authTokenCallback.call.apply(authTokenCallback, [cbCaller].concat(othCbArgs)).then(function (token) {
                     if (empty(token)) {
                         throw { code: QinggerHttpClient.ERR_DATA_TOKEN_NOT_VALID, message: "TOKEN没有设置" };
                     }
                     requestParams.authToken = token;
                     requestParams.authTokenKey = resOptions.authTokenKey || null;
-                    return self.sendRequest(resOptions, requestParams);
+                    return self_1.sendRequest(resOptions, requestParams);
                 });
             }
-        }
-    }
+        };
+        return HttpClient;
+    }());
     QinggerHttpClient.HttpClient = HttpClient;
     /**
      * 导出HTTPCLIENT实例
