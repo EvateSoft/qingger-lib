@@ -34,11 +34,17 @@ var QinggerLibURL;
          */
         URLUtil.ProcessCorrectURL = function (url) {
             if (!url) {
-                return url;
+                return '';
+                //return url;
             }
-            if (!url.match(/^(http[s]?|ftp):\/\//)) {
-                url = 'http://' + url;
-            }
+            // // 如果URL上首字母是/
+            // if (url.map(/^\//)) {
+            //     return url;
+            // }
+            //
+            // if (!url.match(/^(http[s]?|ftp):\/\//)) {
+            //    url = 'http://'+url;
+            // }
             return url;
         };
         /**
@@ -109,6 +115,23 @@ var QinggerLibURL;
         URLUtil.prototype.getUrlQueryItem = function (queryItem) {
             return this.jsUrlObj.getQueryParamValue(queryItem);
         };
+        /**
+         * 获得URL路径上的Item
+         * @param {number} index
+         * @return {string}
+         */
+        URLUtil.prototype.getUrlPathItem = function (index) {
+            var urlPath = this.jsUrlObj.path();
+            var pathItems = urlPath.split("/");
+            var pathItemLength = pathItems.length;
+            if (index >= 0) {
+                return pathItems[index] || '';
+            }
+            else {
+                var actualIndex = pathItemLength - Math.abs(index);
+                return actualIndex >= 0 ? pathItems[actualIndex] : '';
+            }
+        };
         return URLUtil;
     }());
     QinggerLibURL.URLUtil = URLUtil;
@@ -133,3 +156,4 @@ var QinggerLibURL;
     }
     QinggerLibURL.urlUtil = urlUtil;
 })(QinggerLibURL = exports.QinggerLibURL || (exports.QinggerLibURL = {}));
+//# sourceMappingURL=urlUtil.js.map

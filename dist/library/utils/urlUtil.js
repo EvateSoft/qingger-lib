@@ -115,6 +115,23 @@ var QinggerLibURL;
         URLUtil.prototype.getUrlQueryItem = function (queryItem) {
             return this.jsUrlObj.getQueryParamValue(queryItem);
         };
+        /**
+         * 获得URL路径上的Item
+         * @param {number} index
+         * @return {string}
+         */
+        URLUtil.prototype.getUrlPathItem = function (index) {
+            var urlPath = this.jsUrlObj.path();
+            var pathItems = urlPath.split("/");
+            var pathItemLength = pathItems.length;
+            if (index >= 0) {
+                return pathItems[index] || '';
+            }
+            else {
+                var actualIndex = pathItemLength - Math.abs(index);
+                return actualIndex >= 0 ? pathItems[actualIndex] : '';
+            }
+        };
         return URLUtil;
     }());
     QinggerLibURL.URLUtil = URLUtil;

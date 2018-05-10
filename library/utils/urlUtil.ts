@@ -135,6 +135,23 @@ export namespace QinggerLibURL {
         public getUrlQueryItem(queryItem:string) : string {
             return this.jsUrlObj.getQueryParamValue(queryItem);
         }
+
+        /**
+         * 获得URL路径上的Item
+         * @param {number} index
+         * @return {string}
+         */
+        public getUrlPathItem(index:number) : string {
+            let urlPath = this.jsUrlObj.path();
+            let pathItems = urlPath.split("/");
+            let pathItemLength = pathItems.length;
+            if (index>=0) {
+                return pathItems[index] || '';
+            } else {
+                let actualIndex = pathItemLength-Math.abs(index);
+                return actualIndex>=0 ? pathItems[actualIndex] : '';
+            }
+        }
     }
 
     /**

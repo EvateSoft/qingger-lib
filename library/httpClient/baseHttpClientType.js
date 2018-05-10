@@ -40,3 +40,4 @@ var HttpMethod;
     HttpMethod["DELETE"] = "DELETE";
     HttpMethod["OPTIONS"] = "OPTIONS";
 })(HttpMethod = exports.HttpMethod || (exports.HttpMethod = {}));
+//# sourceMappingURL=baseHttpClientType.js.map

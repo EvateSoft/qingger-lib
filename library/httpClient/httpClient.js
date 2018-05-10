@@ -183,7 +183,7 @@ var QinggerHttpClient;
          */
         HttpClient.prototype.setPathParams = function (pathParams) {
             if (isset(this.baseHttpRequestOptions, "path")) {
-                this.urlPath = format(this.baseHttpRequestOptions.path, pathParams);
+                this.urlPath = format(this.urlPath, pathParams);
             }
             return this;
         };
@@ -259,9 +259,9 @@ var QinggerHttpClient;
             }).catch(function (err) {
                 throw {
                     code: QinggerHttpClient.ERR_HTTP_REQUEST_ERROR,
-                    status: err.response.status,
-                    message: err.response.statusText,
-                    data: err.response.data
+                    status: err.response ? (err.response.status || 404) : 404,
+                    message: err.response ? (err.response.statusText || '') : '',
+                    data: err.response ? (err.response.data || {}) : {}
                 };
             });
         };
@@ -306,3 +306,4 @@ var QinggerHttpClient;
      */
     QinggerHttpClient.httpClient = new HttpClient();
 })(QinggerHttpClient = exports.QinggerHttpClient || (exports.QinggerHttpClient = {}));
+//# sourceMappingURL=httpClient.js.map

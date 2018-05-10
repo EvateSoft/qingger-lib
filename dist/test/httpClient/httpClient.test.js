@@ -152,4 +152,3 @@ mocha_typescript_1.suite("HttpClient对象测试", function () {
         });
     });
 });
-//# sourceMappingURL=httpClient.test.js.map

@@ -51,6 +51,12 @@ export declare namespace QinggerLibURL {
          * @return {string}
          */
         getUrlQueryItem(queryItem: string): string;
+        /**
+         * 获得URL路径上的Item
+         * @param {number} index
+         * @return {string}
+         */
+        getUrlPathItem(index: number): string;
     }
     /**
      * 生成URLUtil对象

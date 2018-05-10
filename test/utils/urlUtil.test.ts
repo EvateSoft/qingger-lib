@@ -14,7 +14,7 @@ suite("URL工具类(urlUtil)测试",function () {
 
     let testUrl = 'http://blog.csdn.net/vbangle/article/details/5643091';
     let testUrlWithQuery = 'https://cn.bing.com/search?q=typescript+outDir&qs=n&form=QBRE';
-    let testUrlWithFlags = 'localhost:7188/periodical?q=te&corpId=B2CCIRCLE#/path1/path2';
+    let testUrlWithFlags = 'http://localhost:7188/periodical?q=te&corpId=B2CCIRCLE#/path1/path2';
 
 
     suite("1.urlUtil函数构造测试:",function () {
@@ -79,8 +79,19 @@ suite("URL工具类(urlUtil)测试",function () {
             expect(urlUtil("https://unixtime.51240.com/?qstring=1#/a=1&b=2")
                 .getUrlQueryItem('qstring')).eq("1");
         });
+    });
 
 
+    suite("5.URL Path 字段测试",function(){
+        it("PATH路径Item测试",function(){
+            expect(urlUtil("https://unixtime.51240.com/?p=1&q=3").getUrlPathItem(0)).eq("");
+            expect(urlUtil("https://unixtime.51240.com/p1?p=1&q=3").getUrlPathItem(0)).eq("");
+            expect(urlUtil("https://unixtime.51240.com/p1?p=1&q=3").getUrlPathItem(1)).eq("p1");
+            expect(urlUtil("https://unixtime.51240.com/p11/p21").getUrlPathItem(2)).eq("p21");
+            expect(urlUtil("https://unixtime.51240.com/p111/p211").getUrlPathItem(-1)).eq("p211");
+            expect(urlUtil("https://unixtime.51240.com/p1111/p2111/").getUrlPathItem(-1)).eq("");
+            expect(urlUtil("https://unixtime.51240.com/p11111/p21111/").getUrlPathItem(-2)).eq("p21111");
+        });
     });
 
 });
