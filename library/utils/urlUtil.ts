@@ -98,9 +98,13 @@ export namespace QinggerLibURL {
             let self = this;
             if (!empty(params)) {
                 _.each(params,function (item, key) {
-                    if (self.jsUrlObj.hasQueryParam(key)) {
+                    if (!item) { // 如果值是空值，则删掉数据
+                        self.jsUrlObj.deleteQueryParam(key);
+                    }
+                    else if (self.jsUrlObj.hasQueryParam(key)) {
                         self.jsUrlObj.replaceQueryParam(key, item);
-                    } else {
+                    }
+                    else {
                         self.jsUrlObj.addQueryParam(key, item);
                     }
                 })

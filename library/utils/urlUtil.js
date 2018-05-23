@@ -81,7 +81,10 @@ var QinggerLibURL;
             var self = this;
             if (!empty(params)) {
                 _.each(params, function (item, key) {
-                    if (self.jsUrlObj.hasQueryParam(key)) {
+                    if (!item) {
+                        self.jsUrlObj.deleteQueryParam(key);
+                    }
+                    else if (self.jsUrlObj.hasQueryParam(key)) {
                         self.jsUrlObj.replaceQueryParam(key, item);
                     }
                     else {

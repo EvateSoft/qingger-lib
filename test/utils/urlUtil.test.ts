@@ -54,9 +54,14 @@ suite("URL工具类(urlUtil)测试",function () {
         it("在URL上设置参数?p=1&q=test",function(){
             expect(urlUtil().setUrlQueryParams(queries)).eq("?p=1&q=test");
             expect(urlUtil(testUrlWithQuery).setUrlQueryParams(queries))
-                .eq('https://cn.bing.com/search?q=test&qs=n&form=QBRE&p=1')
+                .eq('https://cn.bing.com/search?q=test&qs=n&form=QBRE&p=1');
             expect(urlUtil(testUrlWithFlags).setUrlQueryParams(queries))
-                .eq('http://localhost:7188/periodical?q=test&corpId=B2CCIRCLE&p=1#/path1/path2')
+                .eq('http://localhost:7188/periodical?q=test&corpId=B2CCIRCLE&p=1#/path1/path2');
+
+        });
+        it('在URL设置空值则会删掉Item',function(){
+            expect(urlUtil().setUrlQueryParams({p:null,q:null})).eq('');
+            expect(urlUtil(testUrlWithQuery).setUrlQueryParams({p:null,q:'',from:null})).eq('https://cn.bing.com/search?qs=n&form=QBRE');
         });
     });
 

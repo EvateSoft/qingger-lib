@@ -50,6 +50,10 @@ mocha_typescript_1.suite("URL工具类(urlUtil)测试", function () {
             chai_1.expect(urlUtil(testUrlWithFlags).setUrlQueryParams(queries))
                 .eq('http://localhost:7188/periodical?q=test&corpId=B2CCIRCLE&p=1#/path1/path2');
         });
+        it('在URL设置空值则会删掉Item', function () {
+            chai_1.expect(urlUtil().setUrlQueryParams({ p: null, q: null })).eq('');
+            chai_1.expect(urlUtil(testUrlWithQuery).setUrlQueryParams({ p: null, q: '', from: null })).eq('https://cn.bing.com/search?qs=n&form=QBRE');
+        });
     });
     mocha_typescript_1.suite("4.URL Query 查询测试：", function () {
         it("获得URL上所有的query值", function () {

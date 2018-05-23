@@ -46,7 +46,8 @@
     "./*.ts",
     "library/**/*",
     "src/**/*",
-    "config/**/*"
+    "config/**/*",
+    "test/**/*"
   ],
   "exclude": [
     "node_modules",
