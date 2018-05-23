@@ -59,9 +59,9 @@ suite("URL工具类(urlUtil)测试",function () {
                 .eq('http://localhost:7188/periodical?q=test&corpId=B2CCIRCLE&p=1#/path1/path2');
 
         });
-        it('在URL设置空值则会删掉Item',function(){
+        it('在URL设置NULL值则会删掉Item',function(){
             expect(urlUtil().setUrlQueryParams({p:null,q:null})).eq('');
-            expect(urlUtil(testUrlWithQuery).setUrlQueryParams({p:null,q:'',from:null})).eq('https://cn.bing.com/search?qs=n&form=QBRE');
+            expect(urlUtil(testUrlWithQuery).setUrlQueryParams({p:null,q:'',from:null})).eq('https://cn.bing.com/search?q=&qs=n&form=QBRE');
         });
     });
 

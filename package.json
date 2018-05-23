@@ -1,6 +1,6 @@
 {
   "name": "qingger-lib",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "Qingger util library for node/web project",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
