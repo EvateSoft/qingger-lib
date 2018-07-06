@@ -1,10 +1,15 @@
-/// <reference types="moment" />
+/**
+ * Created by Qingger Corp.
+ * User: jsspf
+ * Date: 2018/1/27
+ * Time: 22:56
+ */
 import { Moment, DurationInputArg1, DurationInputArg2 } from "moment";
 export declare namespace QinggerLibDateTime {
     type DTParam = DateTimeParser | Moment | string | number | Date | any;
     enum TimestampType {
         TS_SECOND = 0,
-        TS_MILLISECOND = 1,
+        TS_MILLISECOND = 1
     }
     /**
      * 定义日期的开始日期基准
@@ -17,7 +22,7 @@ export declare namespace QinggerLibDateTime {
     enum DTFormatType {
         YMDHMS = "YYYY-MM-DD HH:mm:ss",
         YMD = "YYYY-MM-DD",
-        HMS = "HH:mm:ss",
+        HMS = "HH:mm:ss"
     }
     /**
      * moment库中使用到的一些常量定义
@@ -31,7 +36,7 @@ export declare namespace QinggerLibDateTime {
         hours = "hours",
         minutes = "minutes",
         seconds = "seconds",
-        milliseconds = "milliseconds",
+        milliseconds = "milliseconds"
     }
     /**
      * Qingger-DateTimeParser处理日期时间类

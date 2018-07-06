@@ -45,7 +45,6 @@ export namespace QinggerLibUtils {
         } else {
             return !!val[props];
         }
-        //return !!val[props];
         //return hasValue(val,props);
     }
 

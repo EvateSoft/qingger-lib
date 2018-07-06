@@ -1,3 +1,9 @@
+/**
+ * Created by Qingger Corp.
+ * User: jsspf
+ * Date: 2018/1/27
+ * Time: 22:50
+ */
 export declare namespace QinggerLibUtils {
     /**
      * 判断是否为空
@@ -12,7 +18,7 @@ export declare namespace QinggerLibUtils {
      * @param val
      * @param {string} props
      */
-    function isset(val: any, props?: string): any;
+    function isset(val: any, props?: string): boolean;
     /**
      * 判断元素是否在数组中存在
      * @param {T} search

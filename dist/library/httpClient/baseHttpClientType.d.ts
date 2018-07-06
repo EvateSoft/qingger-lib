@@ -10,14 +10,14 @@
 import { ItemObject } from "../common/types";
 export declare enum HttpProtocolType {
     METHOD_HTTP = "http",
-    METHOD_HTTPS = "https",
+    METHOD_HTTPS = "https"
 }
 /**
  * HTTP/HTTPS 默认端口
  */
 export declare enum HttpWebDefaultPort {
     HTTP_DEFAULT_PORT = 80,
-    HTTPS_DEFAULT_PORT = 443,
+    HTTPS_DEFAULT_PORT = 443
 }
 /**
  * 定义的类证类型
@@ -26,7 +26,7 @@ export declare enum BaseAuthType {
     NONE = 0,
     TOKEN = 1,
     CRM_AUTH = 2,
-    PORTAL_AUTH = 3,
+    PORTAL_AUTH = 3
 }
 /**
  * HTTP Method类型
@@ -36,7 +36,7 @@ export declare enum HttpMethod {
     POST = "POST",
     UPDATE = "UPDATE",
     DELETE = "DELETE",
-    OPTIONS = "OPTIONS",
+    OPTIONS = "OPTIONS"
 }
 /**
  * 应用API的提交请求的基本信息

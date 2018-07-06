@@ -122,7 +122,9 @@ mocha_typescript_1.suite("HttpClient对象测试", function () {
         it("GET请求/user,数据返回正常:", function (done) {
             mocha_typescript_1.slow(500);
             var httpClient2 = new HttpClient();
-            httpClient2.sendRequest(EPS_GET_USER_INFO, {}).then(function (res) {
+            httpClient2.sendRequest(EPS_GET_USER_INFO, {
+            // queryParams : {userId : 1001}
+            }).then(function (res) {
                 chai_1.expect(res).deep.eq({
                     code: 20000,
                     content: { userName: 'shipfi', }

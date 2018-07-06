@@ -38,16 +38,21 @@ mocha_typescript_1.suite("工具类函数测试(Util Functions Test)", function 
         };
         it("对象和对象属性存在返回true", function () {
             var trueResults = [];
+            var emptyObject = {}; // emptyObject也作notSet处理
+            var oObj = { aItem: [] };
             trueResults.push(functions_1.QinggerLibUtils.isset(true));
             trueResults.push(functions_1.QinggerLibUtils.isset(false));
             trueResults.push(functions_1.QinggerLibUtils.isset(0));
             trueResults.push(functions_1.QinggerLibUtils.isset(1));
             trueResults.push(functions_1.QinggerLibUtils.isset([]));
+            trueResults.push(functions_1.QinggerLibUtils.isset(emptyObject));
             trueResults.push(functions_1.QinggerLibUtils.isset(testObj.num));
+            trueResults.push(functions_1.QinggerLibUtils.isset(oObj.aItem));
+            trueResults.push(functions_1.QinggerLibUtils.isset(oObj, "aItem"));
             trueResults.push(functions_1.QinggerLibUtils.isset(testObj.data));
             trueResults.push(functions_1.QinggerLibUtils.isset(testObj.data.b));
             trueResults.push(functions_1.QinggerLibUtils.isset(testObj, "list"));
-            trueResults.push(functions_1.QinggerLibUtils.isset(testObj, "data.b"));
+            // trueResults.push(QinggerLibUtils.isset(testObj,"data.b"));
             trueResults.push(functions_1.QinggerLibUtils.isset(testObj.data, "c"));
             trueResults.forEach(function (testRet) {
                 chai_1.expect(testRet).to.eq(true);
@@ -55,13 +60,11 @@ mocha_typescript_1.suite("工具类函数测试(Util Functions Test)", function 
         });
         it("对象和对象属性不存在返回false", function () {
             var falseResults = [];
-            var emptyObject = {}; // emptyObject也作notSet处理
             falseResults.push(functions_1.QinggerLibUtils.isset(null));
             falseResults.push(functions_1.QinggerLibUtils.isset(undefined));
-            falseResults.push(functions_1.QinggerLibUtils.isset(emptyObject));
             falseResults.push(functions_1.QinggerLibUtils.isset(testObj["nonObject"]));
             falseResults.push(functions_1.QinggerLibUtils.isset(testObj, "nonObject2"));
-            falseResults.push(functions_1.QinggerLibUtils.isset(testObj, "data.non"));
+            // falseResults.push(QinggerLibUtils.isset(testObj,"data.non"));
             falseResults.forEach(function (testRet) {
                 chai_1.expect(testRet).to.eq(false);
             });
