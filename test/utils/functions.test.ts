@@ -42,17 +42,21 @@ suite("工具类函数测试(Util Functions Test)",function() {
 
         it("对象和对象属性存在返回true",function(){
             let trueResults = [];
-
+            let emptyObject = {}; // emptyObject也作notSet处理
+            let oObj = {aItem : []};
             trueResults.push(QinggerLibUtils.isset(true));
             trueResults.push(QinggerLibUtils.isset(false));
             trueResults.push(QinggerLibUtils.isset(0));
             trueResults.push(QinggerLibUtils.isset(1));
             trueResults.push(QinggerLibUtils.isset([]));
+            trueResults.push(QinggerLibUtils.isset(emptyObject));
             trueResults.push(QinggerLibUtils.isset(testObj.num));
+            trueResults.push(QinggerLibUtils.isset(oObj.aItem));
+            trueResults.push(QinggerLibUtils.isset(oObj,"aItem"));
             trueResults.push(QinggerLibUtils.isset(testObj.data));
             trueResults.push(QinggerLibUtils.isset(testObj.data.b));
             trueResults.push(QinggerLibUtils.isset(testObj,"list"));
-            trueResults.push(QinggerLibUtils.isset(testObj,"data.b"));
+            // trueResults.push(QinggerLibUtils.isset(testObj,"data.b"));
             trueResults.push(QinggerLibUtils.isset(testObj.data,"c"));
             trueResults.forEach(function(testRet){
                 expect(testRet).to.eq(true);
@@ -61,13 +65,12 @@ suite("工具类函数测试(Util Functions Test)",function() {
 
         it("对象和对象属性不存在返回false",function () {
             let falseResults = [];
-            let emptyObject = {}; // emptyObject也作notSet处理
+
             falseResults.push(QinggerLibUtils.isset(null));
             falseResults.push(QinggerLibUtils.isset(undefined));
-            falseResults.push(QinggerLibUtils.isset(emptyObject));
             falseResults.push(QinggerLibUtils.isset(testObj["nonObject"]));
             falseResults.push(QinggerLibUtils.isset(testObj,"nonObject2"));
-            falseResults.push(QinggerLibUtils.isset(testObj,"data.non"));
+            // falseResults.push(QinggerLibUtils.isset(testObj,"data.non"));
             falseResults.forEach(function(testRet){
                 expect(testRet).to.eq(false);
             });

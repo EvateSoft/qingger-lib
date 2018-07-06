@@ -39,7 +39,14 @@ export namespace QinggerLibUtils {
         }
         if (!val)
             return false;
-        return hasValue(val,props);
+
+        if (!props) {
+            return !!val;
+        } else {
+            return !!val[props];
+        }
+        //return !!val[props];
+        //return hasValue(val,props);
     }
 
 

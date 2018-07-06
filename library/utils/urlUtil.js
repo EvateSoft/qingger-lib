@@ -81,7 +81,7 @@ var QinggerLibURL;
             var self = this;
             if (!empty(params)) {
                 _.each(params, function (item, key) {
-                    if (item == null) {
+                    if (item == null) { // 如果值是NULL值，则删掉数据
                         self.jsUrlObj.deleteQueryParam(key);
                     }
                     else if (self.jsUrlObj.hasQueryParam(key)) {

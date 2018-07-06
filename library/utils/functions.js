@@ -34,12 +34,19 @@ var QinggerLibUtils;
      */
     function isset(val, props) {
         if (props === void 0) { props = null; }
-        if (val == 0 || val == false) {
+        if (val == 0 || val == false) { // 固定值设置为true
             return true;
         }
         if (!val)
             return false;
-        return hasValue(val, props);
+        if (!props) {
+            return !!val;
+        }
+        else {
+            return !!val[props];
+        }
+        //return !!val[props];
+        //return hasValue(val,props);
     }
     QinggerLibUtils.isset = isset;
     /**
