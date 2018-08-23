@@ -66,7 +66,7 @@ export namespace QinggerLibDateTime {
          * @constructor
          */
         public static CheckTimeStampType(ts:number) {
-            return ts<9999999999 ? TimestampType.TS_SECOND : TimestampType.TS_MILLISECOND;
+            return (ts<9999999999 && ts>-60000000000) ? TimestampType.TS_SECOND : TimestampType.TS_MILLISECOND;
         }
 
 
