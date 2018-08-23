@@ -109,7 +109,7 @@ var QinggerLibDateTime;
          * @constructor
          */
         DateTimeParser.CheckTimeStampType = function (ts) {
-            return ts < 9999999999 ? TimestampType.TS_SECOND : TimestampType.TS_MILLISECOND;
+            return (ts < 9999999999 && ts > -60000000000) ? TimestampType.TS_SECOND : TimestampType.TS_MILLISECOND;
         };
         /**
          * static : 将时间戳转换成moment对象(支持秒和毫秒)
