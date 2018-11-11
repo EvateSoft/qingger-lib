@@ -58,6 +58,7 @@ export interface BaseHttpRequestOption extends ItemObject {
     queryParams?: any;
     postParams?: any;
     tokenType?: string;
+    jsonFile?: string;
 }
 /**
  * 调用时请求的参数

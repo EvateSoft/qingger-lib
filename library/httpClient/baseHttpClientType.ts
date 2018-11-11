@@ -65,6 +65,7 @@ export interface BaseHttpRequestOption extends ItemObject {
     queryParams? : any;
     postParams? : any;
     tokenType? : string;
+    jsonFile? : string;
 }
 
 /**

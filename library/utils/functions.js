@@ -45,7 +45,6 @@ var QinggerLibUtils;
         else {
             return !!val[props];
         }
-        //return !!val[props];
         //return hasValue(val,props);
     }
     QinggerLibUtils.isset = isset;
