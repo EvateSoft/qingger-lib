@@ -13,6 +13,7 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 export declare namespace QinggerHttpClient {
     const ERR_DATA_TOKEN_NOT_VALID = 20400;
     const ERR_HTTP_REQUEST_ERROR = 20500;
+    const ERR_HTTP_REQUEST_TIMEOUT = 20504;
     /**
      * HTTP连接类
      */
