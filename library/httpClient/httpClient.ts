@@ -25,6 +25,7 @@ export namespace QinggerHttpClient {
     import urlUtil = QinggerLibURL.urlUtil;
     export const ERR_DATA_TOKEN_NOT_VALID = 20400;
     export const ERR_HTTP_REQUEST_ERROR = 20500;
+    export const ERR_HTTP_REQUEST_TIMEOUT  = 20504;
 
     /**
      * HTTP连接类
@@ -300,12 +301,22 @@ export namespace QinggerHttpClient {
             return axios(requestConfig).then(function (response : AxiosResponse)  {
                 return HttpClient.ResolveHttpResponse(response);
             }).catch(function (err:AxiosError) {
-                throw {
-                    code : ERR_HTTP_REQUEST_ERROR,
-                    status: err.response ? (err.response.status||404) : 404 ,
-                    message: err.response ? (err.response.statusText||'') : '',
-                    data: err.response ? (err.response.data||{}) : {}
-                };
+                if (err.message.search("timeout")!=-1) {
+                    // 超时处理，返回状态是504,返回code=20504
+                    throw {
+                        code : ERR_HTTP_REQUEST_TIMEOUT,
+                        status : 504,
+                        message : err.message || "request timeout",
+                        data : {}
+                    }
+                }  else {
+                    throw {
+                        code : err.code || ERR_HTTP_REQUEST_ERROR,
+                        status: err.response ? (err.response.status||404) : 404 ,
+                        message: err.message || '', //err.message ? (err.response.statusText||'') : '',
+                        data: err.response ? (err.response.data||{}) : {}
+                    };
+                }
             });
         }
 
