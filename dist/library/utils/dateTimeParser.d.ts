@@ -65,7 +65,7 @@ export declare namespace QinggerLibDateTime {
          * DateTimeParse构造函数
          * @param {DTParam} dt : 参数值
          * @desc : 参数值支持以下变量类型
-         *  1) 时间戳(秒/毫秒)
+         *  1) 时间戳(秒/毫秒), 备注：现在只支持秒数,而不支持毫秒
          *  2) 时间类型字符串 , 如 "2018-01-10 10:00" / "2018-01-22T06:11:25.67" / "JUL 12 2018 12:00 GMT+0800"
          *  3) Date类型对象, 如 new Date()
          *  4) DateTimeParser对象，
