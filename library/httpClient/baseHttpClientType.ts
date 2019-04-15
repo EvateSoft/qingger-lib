@@ -9,6 +9,7 @@
  * 基本验证类型
  */
 import {ItemObject} from "../common/types";
+import {AgentOptions} from "https";
 
 export enum HttpProtocolType {
     METHOD_HTTP = 'http',
@@ -47,6 +48,7 @@ export enum HttpMethod {
 
 /**
  * 应用API的提交请求的基本信息
+ *
  */
 export interface BaseHttpRequestOption extends ItemObject {
     name        : string;
@@ -66,6 +68,11 @@ export interface BaseHttpRequestOption extends ItemObject {
     postParams? : any;
     tokenType? : string;
     jsonFile? : string;
+
+    optionItems?  : {
+        httpsAgent?: AgentOptions
+        httpAgent? : ItemObject
+    }
 }
 
 /**

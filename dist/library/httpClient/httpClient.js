@@ -12,6 +12,8 @@ var urlUtil_1 = require("../utils/urlUtil");
 var _ = require("lodash");
 var format = require("string-template");
 var axios = require('axios');
+var https = require('https');
+var http = require("http");
 /**
  * HTTP通信基础类(基于Axios)
  */
@@ -38,6 +40,14 @@ var QinggerHttpClient;
             this.queryParams = {};
             this.timeout = 10000;
             this.requestName = '';
+            /**
+             * HTTPS-Agent
+             */
+            this.httpsAgent = null;
+            /**
+             * HTTP-Agent
+             */
+            this.httpAgent = null;
             var defaultRequestConfig = requestOptions || {
                 name: 'defaultName',
                 method: "GET",
@@ -99,6 +109,12 @@ var QinggerHttpClient;
             this.headers = _.defaultTo(this.baseHttpRequestOptions.headers, {});
             this.timeout = _.defaultTo(this.baseHttpRequestOptions.timeout, 10000);
             this.requestName = _.defaultTo(this.baseHttpRequestOptions.name, '');
+            if (this.baseHttpRequestOptions.optionItems && this.baseHttpRequestOptions.optionItems.httpsAgent) {
+                this.httpsAgent = this.baseHttpRequestOptions.optionItems.httpsAgent;
+            }
+            if (this.baseHttpRequestOptions.optionItems && this.baseHttpRequestOptions.optionItems.httpAgent) {
+                this.httpAgent = this.baseHttpRequestOptions.optionItems.httpAgent;
+            }
             return this;
         };
         /**
@@ -212,6 +228,12 @@ var QinggerHttpClient;
             if (!empty(this.postParams)) {
                 options["data"] = this.postParams;
             }
+            if (this.httpsAgent) {
+                options.httpsAgent = new https.Agent(this.httpsAgent);
+            }
+            if (this.httpAgent) {
+                options.httpAgent = new http.Agent(this.httpAgent);
+            }
             return options;
         };
         /**
@@ -271,7 +293,7 @@ var QinggerHttpClient;
                     throw {
                         code: err.code || QinggerHttpClient.ERR_HTTP_REQUEST_ERROR,
                         status: err.response ? (err.response.status || 404) : 404,
-                        message: err.message || '',
+                        message: "Axios Error:" + err.message || '',
                         data: err.response ? (err.response.data || {}) : {}
                     };
                 }

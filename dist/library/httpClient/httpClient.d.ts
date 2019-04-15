@@ -31,6 +31,14 @@ export declare namespace QinggerHttpClient {
         protected queryParams: {};
         protected timeout: number;
         protected requestName: string;
+        /**
+         * HTTPS-Agent
+         */
+        protected httpsAgent: any;
+        /**
+         * HTTP-Agent
+         */
+        protected httpAgent: any;
         constructor(requestOptions?: BaseHttpRequestOption);
         /**
          * 获取请求

@@ -13,7 +13,8 @@ import {QinggerLibURL} from "../utils/urlUtil";
 const _ = require("lodash");
 const format = require("string-template");
 const axios = require('axios');
-
+const https = require('https');
+const http = require("http");
 
 /**
  * HTTP通信基础类(基于Axios)
@@ -50,6 +51,16 @@ export namespace QinggerHttpClient {
         protected timeout = 10000;
 
         protected requestName = '';
+
+        /**
+         * HTTPS-Agent
+         */
+        protected httpsAgent = null;
+
+        /**
+         * HTTP-Agent
+         */
+        protected httpAgent = null;
 
 
         constructor(requestOptions:BaseHttpRequestOption=null) {
@@ -119,6 +130,13 @@ export namespace QinggerHttpClient {
             this.headers    =  _.defaultTo(this.baseHttpRequestOptions.headers,{});
             this.timeout    = _.defaultTo(this.baseHttpRequestOptions.timeout,10000);
             this.requestName= _.defaultTo(this.baseHttpRequestOptions.name,'');
+
+            if (this.baseHttpRequestOptions.optionItems && this.baseHttpRequestOptions.optionItems.httpsAgent)  {
+                this.httpsAgent = this.baseHttpRequestOptions.optionItems.httpsAgent;
+            }
+            if (this.baseHttpRequestOptions.optionItems && this.baseHttpRequestOptions.optionItems.httpAgent)  {
+                this.httpAgent = this.baseHttpRequestOptions.optionItems.httpAgent;
+            }
 
             return this;
         }
@@ -237,7 +255,7 @@ export namespace QinggerHttpClient {
          * @returns {AxiosRequestConfig}
          */
         protected parseRequestOptions() : AxiosRequestConfig {
-            let options = {
+            let options:AxiosRequestConfig = {
                 method   : this.method,
                 baseURL  : this.baseURL,
                 url      : this.urlPath,
@@ -247,6 +265,13 @@ export namespace QinggerHttpClient {
 
             if (!empty(this.postParams)) {
                 options["data"] = this.postParams;
+            }
+
+            if (this.httpsAgent) {
+                options.httpsAgent = new https.Agent(this.httpsAgent)
+            }
+            if (this.httpAgent) {
+                options.httpAgent = new http.Agent(this.httpAgent);
             }
 
             return options;
@@ -298,6 +323,7 @@ export namespace QinggerHttpClient {
             }
 
             let requestConfig = this.parseRequestOptions();
+
             return axios(requestConfig).then(function (response : AxiosResponse)  {
                 return HttpClient.ResolveHttpResponse(response);
             }).catch(function (err:AxiosError) {
@@ -313,7 +339,7 @@ export namespace QinggerHttpClient {
                     throw {
                         code : err.code || ERR_HTTP_REQUEST_ERROR,
                         status: err.response ? (err.response.status||404) : 404 ,
-                        message: err.message || '', //err.message ? (err.response.statusText||'') : '',
+                        message: "Axios Error:"+err.message || '', //err.message ? (err.response.statusText||'') : '',
                         data: err.response ? (err.response.data||{}) : {}
                     };
                 }

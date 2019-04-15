@@ -4,10 +4,12 @@
  * Date: 2017/11/16
  * Time: 10:02
  */
+/// <reference types="node" />
 /**
  * 基本验证类型
  */
 import { ItemObject } from "../common/types";
+import { AgentOptions } from "https";
 export declare enum HttpProtocolType {
     METHOD_HTTP = "http",
     METHOD_HTTPS = "https"
@@ -40,6 +42,7 @@ export declare enum HttpMethod {
 }
 /**
  * 应用API的提交请求的基本信息
+ *
  */
 export interface BaseHttpRequestOption extends ItemObject {
     name: string;
@@ -59,6 +62,10 @@ export interface BaseHttpRequestOption extends ItemObject {
     postParams?: any;
     tokenType?: string;
     jsonFile?: string;
+    optionItems?: {
+        httpsAgent?: AgentOptions;
+        httpAgent?: ItemObject;
+    };
 }
 /**
  * 调用时请求的参数
