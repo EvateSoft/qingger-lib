@@ -39,6 +39,8 @@ export declare namespace QinggerHttpClient {
          * HTTP-Agent
          */
         protected httpAgent: any;
+        protected responseType: string;
+        protected responseEncoding: string;
         constructor(requestOptions?: BaseHttpRequestOption);
         /**
          * 获取请求

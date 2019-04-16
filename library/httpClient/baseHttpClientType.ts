@@ -69,6 +69,9 @@ export interface BaseHttpRequestOption extends ItemObject {
     tokenType? : string;
     jsonFile? : string;
 
+    responseType?: string;        // 返回的数据结构类型，默认为utf8编码的字符串,如果是图片等裸数据类型，使用"arraybuffer"
+    responseEncoding?: string;    // 如果是需要二进行解码，使用"binary"
+
     optionItems?  : {
         httpsAgent?: AgentOptions
         httpAgent? : ItemObject

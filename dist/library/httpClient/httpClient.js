@@ -48,6 +48,9 @@ var QinggerHttpClient;
              * HTTP-Agent
              */
             this.httpAgent = null;
+            /* 以下两个设置后可以返回数据流 (arraybuffer/binary)*/
+            this.responseType = '';
+            this.responseEncoding = '';
             var defaultRequestConfig = requestOptions || {
                 name: 'defaultName',
                 method: "GET",
@@ -109,6 +112,8 @@ var QinggerHttpClient;
             this.headers = _.defaultTo(this.baseHttpRequestOptions.headers, {});
             this.timeout = _.defaultTo(this.baseHttpRequestOptions.timeout, 10000);
             this.requestName = _.defaultTo(this.baseHttpRequestOptions.name, '');
+            this.responseType = _.defaultTo(this.baseHttpRequestOptions.responseType, '');
+            this.responseEncoding = _.defaultTo(this.baseHttpRequestOptions.responseEncoding, '');
             if (this.baseHttpRequestOptions.optionItems && this.baseHttpRequestOptions.optionItems.httpsAgent) {
                 this.httpsAgent = this.baseHttpRequestOptions.optionItems.httpsAgent;
             }
@@ -233,6 +238,13 @@ var QinggerHttpClient;
             }
             if (this.httpAgent) {
                 options.httpAgent = new http.Agent(this.httpAgent);
+            }
+            if (this.responseType) {
+                options.responseType = this.responseType;
+            }
+            if (this.responseEncoding) {
+                ///@ts-ignore
+                options.responseEncoding = this.responseEncoding;
             }
             return options;
         };

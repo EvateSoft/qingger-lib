@@ -62,6 +62,8 @@ export interface BaseHttpRequestOption extends ItemObject {
     postParams?: any;
     tokenType?: string;
     jsonFile?: string;
+    responseType?: string;
+    responseEncoding?: string;
     optionItems?: {
         httpsAgent?: AgentOptions;
         httpAgent?: ItemObject;
