@@ -327,6 +327,7 @@ export namespace QinggerHttpClient {
             return axios(requestConfig).then(function (response : AxiosResponse)  {
                 return HttpClient.ResolveHttpResponse(response);
             }).catch(function (err:AxiosError) {
+                let errResponseData = err && err.response && err.response.data;
                 if (err.message.search("timeout")!=-1) {
                     // 超时处理，返回状态是504,返回code=20504
                     throw {
@@ -337,10 +338,10 @@ export namespace QinggerHttpClient {
                     }
                 }  else {
                     throw {
-                        code : err.code || ERR_HTTP_REQUEST_ERROR,
-                        status: err.response ? (err.response.status||404) : 404 ,
-                        message: "Axios Error:"+err.message || '', //err.message ? (err.response.statusText||'') : '',
-                        data: err.response ? (err.response.data||{}) : {}
+                        code: errResponseData.code || QinggerHttpClient.ERR_HTTP_REQUEST_ERROR,
+                        status: err.response ? (err.response.status || 404) : 404,
+                        message: errResponseData.message || errResponseData.msg || err.message || '',
+                        data: errResponseData || {}
                     };
                 }
             });
