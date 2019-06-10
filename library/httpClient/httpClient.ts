@@ -351,9 +351,9 @@ export namespace QinggerHttpClient {
                     }
                 }  else {
                     throw {
-                        code: errResponseData.code || QinggerHttpClient.ERR_HTTP_REQUEST_ERROR,
+                        code: errResponseData && errResponseData.code || QinggerHttpClient.ERR_HTTP_REQUEST_ERROR,
                         status: err.response ? (err.response.status || 404) : 404,
-                        message: errResponseData.message || errResponseData.msg || err.message || '',
+                        message: (errResponseData && (errResponseData.message || errResponseData.msg)) || (err && err.message) || 'UNKNOWN MESSAGE',
                         data: errResponseData || {}
                     };
                 }
