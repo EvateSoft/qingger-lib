@@ -25,6 +25,19 @@ console.log(tsfmt);
 
 ```
 
+
+### distribute
+```bash
+$ tsc
+$ npm config set registry https://registry.npmjs.org/
+$ npm login
+$ npm who am i
+$ npm version patch / minor / major
+$ npm publish
+$ npm logout
+
+```
+
 ## License
 
 ISC
