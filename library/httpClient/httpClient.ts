@@ -136,6 +136,9 @@ export namespace QinggerHttpClient {
             this.responseType = _.defaultTo(this.baseHttpRequestOptions.responseType,'');
             this.responseEncoding = _.defaultTo(this.baseHttpRequestOptions.responseEncoding,'');
 
+            // 必须初始化(否则会沿用老的)
+            this.httpAgent = this.httpsAgent = null;
+
             if (this.baseHttpRequestOptions.optionItems && this.baseHttpRequestOptions.optionItems.httpsAgent)  {
                 this.httpsAgent = this.baseHttpRequestOptions.optionItems.httpsAgent;
             }
