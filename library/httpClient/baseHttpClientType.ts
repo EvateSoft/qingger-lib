@@ -60,7 +60,7 @@ export interface BaseHttpRequestOption extends ItemObject {
     authType?   : BaseAuthType;
     headers?    : any;
     timeout?    : number;
-    timeoutTryTimes?: number;       // 超时的重试机制，重试次数,默认为0
+    timeoutTryTimes?: number;       // 超时的重试机制，重试次数,如果不需要重试，设置成-1
     debug?      : boolean;
     fromJson?   : boolean;
     authTokenKey? : string;       // 定义包装TOKEN的HEADER的key名称

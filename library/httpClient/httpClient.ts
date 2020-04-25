@@ -388,7 +388,7 @@ export namespace QinggerHttpClient {
                 let errResponseData = err && err.response && err.response.data;
                 if (err.request && (err.code=="ECONNABORTED" || err.message.search("timeout")!=-1))  {
                     // ECONNABORTED 超时重试
-                    return self.retryTimeoutRequest(requestConfig,resOptions.timeoutTryTimes||0);
+                    return self.retryTimeoutRequest(requestConfig,resOptions.timeoutTryTimes||3);
                 }  else {
                     throw {
                         code: errResponseData && errResponseData.code || QinggerHttpClient.ERR_HTTP_REQUEST_ERROR,
