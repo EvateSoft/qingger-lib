@@ -14,6 +14,7 @@ export declare namespace QinggerHttpClient {
     const ERR_DATA_TOKEN_NOT_VALID = 20400;
     const ERR_HTTP_REQUEST_ERROR = 20500;
     const ERR_HTTP_REQUEST_TIMEOUT = 20504;
+    const ERR_HTTP_REQUEST_ABORT_TIMEOUT = 20505;
     /**
      * HTTP连接类
      */
@@ -30,6 +31,7 @@ export declare namespace QinggerHttpClient {
         protected postParams: {};
         protected queryParams: {};
         protected timeout: number;
+        protected timeoutRetryTimes: number;
         protected requestName: string;
         /**
          * HTTPS-Agent
@@ -131,6 +133,12 @@ export declare namespace QinggerHttpClient {
          * @returns {HttpClient}
          */
         setAllParams(allParams: BaseHttpRequestParams): HttpClient;
+        /**
+         * 对于TCP:ECONNABORTED的重试请求处理
+         * @param requestConfig
+         * @param retryTimes
+         */
+        retryTimeoutRequest(requestConfig: AxiosRequestConfig, retryTimes: number): any;
         /**
          * 发送HTTP请求
          * @param {BaseHttpRequestOption} resOptions

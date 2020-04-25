@@ -29,6 +29,7 @@ console.log(tsfmt);
 ### distribute
 ```bash
 $ tsc
+$ git add . / git commit
 $ npm config set registry https://registry.npmjs.org/
 $ npm login
 $ npm who am i

@@ -25,6 +25,7 @@ var QinggerHttpClient;
     QinggerHttpClient.ERR_DATA_TOKEN_NOT_VALID = 20400;
     QinggerHttpClient.ERR_HTTP_REQUEST_ERROR = 20500;
     QinggerHttpClient.ERR_HTTP_REQUEST_TIMEOUT = 20504;
+    QinggerHttpClient.ERR_HTTP_REQUEST_ABORT_TIMEOUT = 20505;
     /**
      * HTTP连接类
      */
@@ -38,7 +39,8 @@ var QinggerHttpClient;
             this.urlPath = '/';
             this.postParams = {};
             this.queryParams = {};
-            this.timeout = 10000;
+            this.timeout = 5000;
+            this.timeoutRetryTimes = 3;
             this.requestName = '';
             /**
              * HTTPS-Agent
@@ -110,10 +112,11 @@ var QinggerHttpClient;
             this.urlPath = _.defaultTo(this.baseHttpRequestOptions.path, "/");
             this.authType = _.defaultTo(this.baseHttpRequestOptions.authType, baseHttpClientType_1.BaseAuthType.NONE);
             this.headers = _.defaultTo(this.baseHttpRequestOptions.headers, {});
-            this.timeout = _.defaultTo(this.baseHttpRequestOptions.timeout, 10000);
+            this.timeout = _.defaultTo(this.baseHttpRequestOptions.timeout, 5000);
             this.requestName = _.defaultTo(this.baseHttpRequestOptions.name, '');
             this.responseType = _.defaultTo(this.baseHttpRequestOptions.responseType, '');
             this.responseEncoding = _.defaultTo(this.baseHttpRequestOptions.responseEncoding, '');
+            this.timeoutRetryTimes = _.defaultTo(this.baseHttpRequestOptions.timeoutTryTimes, 3);
             // 必须初始化(否则会沿用老的)
             this.httpAgent = this.httpsAgent = null;
             if (this.baseHttpRequestOptions.optionItems && this.baseHttpRequestOptions.optionItems.httpsAgent) {
@@ -276,6 +279,41 @@ var QinggerHttpClient;
             return this;
         };
         /**
+         * 对于TCP:ECONNABORTED的重试请求处理
+         * @param requestConfig
+         * @param retryTimes
+         */
+        HttpClient.prototype.retryTimeoutRequest = function (requestConfig, retryTimes) {
+            var _this = this;
+            requestConfig.timeout = requestConfig.timeout || 0;
+            requestConfig.timeout = requestConfig.timeout - 2000;
+            if (retryTimes <= 0 || requestConfig.timeout <= 0) {
+                throw {
+                    code: QinggerHttpClient.ERR_HTTP_REQUEST_ABORT_TIMEOUT,
+                    status: 505,
+                    message: "request timeout and retry" + retryTimes + " times and timeout",
+                    data: {}
+                };
+            }
+            retryTimes = retryTimes - 1;
+            return axios(requestConfig).then(function (response) {
+                return HttpClient.ResolveHttpResponse(response);
+            }).catch(function (err) {
+                var errResponseData = err && err.response && err.response.data;
+                if (err.request && err.code == "ECONNABORTED") {
+                    return _this.retryTimeoutRequest(requestConfig, retryTimes);
+                }
+                else {
+                    throw {
+                        code: errResponseData && errResponseData.code || QinggerHttpClient.ERR_HTTP_REQUEST_ERROR,
+                        status: err.response ? (err.response.status || 404) : 404,
+                        message: (errResponseData && (errResponseData.message || errResponseData.msg)) || (err && err.message) || 'UNKNOWN MESSAGE',
+                        data: errResponseData || {}
+                    };
+                }
+            });
+        };
+        /**
          * 发送HTTP请求
          * @param {BaseHttpRequestOption} resOptions
          * @param {ItemObject} requestParams
@@ -291,18 +329,14 @@ var QinggerHttpClient;
                 this.setAllParams(requestParams);
             }
             var requestConfig = this.parseRequestOptions();
+            var self = this;
             return axios(requestConfig).then(function (response) {
                 return HttpClient.ResolveHttpResponse(response);
             }).catch(function (err) {
                 var errResponseData = err && err.response && err.response.data;
-                if (err.message.search("timeout") != -1) {
-                    // 超时处理，返回状态是504,返回code=20504
-                    throw {
-                        code: QinggerHttpClient.ERR_HTTP_REQUEST_TIMEOUT,
-                        status: 504,
-                        message: err.message || "request timeout",
-                        data: {}
-                    };
+                if (err.request && (err.code == "ECONNABORTED" || err.message.search("timeout") != -1)) {
+                    // ECONNABORTED 超时重试
+                    return self.retryTimeoutRequest(requestConfig, resOptions.timeoutTryTimes || 0);
                 }
                 else {
                     throw {

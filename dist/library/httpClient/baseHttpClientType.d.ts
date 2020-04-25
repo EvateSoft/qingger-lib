@@ -54,6 +54,7 @@ export interface BaseHttpRequestOption extends ItemObject {
     authType?: BaseAuthType;
     headers?: any;
     timeout?: number;
+    timeoutTryTimes?: number;
     debug?: boolean;
     fromJson?: boolean;
     authTokenKey?: string;
