@@ -340,7 +340,7 @@ export namespace QinggerHttpClient {
                 throw {
                     code: QinggerHttpClient.ERR_HTTP_REQUEST_ABORT_TIMEOUT,
                     status: 505,
-                    message: "request timeout and retry"+retryTimes+" times and timeout",
+                    message: "request timeout and retry ("+retryTimes+") times and timeout",
                     data: {}
                 }
             }
